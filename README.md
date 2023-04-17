@@ -1,1 +1,31 @@
 # ProjectMM
+
+Pages
+- Rechercher (Florian)
+  - Barre de recherche
+  - Icone « loupe »
+  - Realtime
+  - Résultats
+    - Image
+    - Titre
+    - Genre
+    - Durée
+    - Date de sortie
+  - Limite 10 résultat
+- Film (Florian)
+  - Image 
+  - Titre
+  - Genre
+  - Durée
+  - Date de sortie
+  - Bouton « ajouter aux favoris »
+  - Résumé
+  - Note du film
+- Filtres (Launch activity) (Béa)
+  - Genre 
+  - Durée
+  - Date
+- QRCode (Béa)
+  - Ouvrir caméra
+- Favoris (Béa)
+  - Même layout que recherche 
