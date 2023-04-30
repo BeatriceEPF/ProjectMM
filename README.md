@@ -29,3 +29,11 @@ Pages
   - Ouvrir caméra
 - Favoris (Béa)
   - Même layout que recherche 
+
+
+
+Clé API : 
+4c5fc9d212f1199cb82213673620b351  
+Tests :   
+https://api.themoviedb.org/3/trending/all/day?api_key=4c5fc9d212f1199cb82213673620b351  
+https://api.themoviedb.org/3/movie/725201?api_key=4c5fc9d212f1199cb82213673620b351&language=en-US  
