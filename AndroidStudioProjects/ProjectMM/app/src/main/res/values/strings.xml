@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">ProjectMM</string>
+
+    <string name="text_menuButton_QRCode">QR Code</string>
+    <string name="text_menuButton_ListFilms">Liste</string>
+    <string name="text_menuButton_SearchFilms">Recherche</string>
+    <string name="text_menuButton_FavFilms">Favoris</string>
+    <string name="text_menuButton_Profile">Profil</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>

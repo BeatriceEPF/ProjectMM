@@ -12,7 +12,22 @@
         android:theme="@style/Theme.ProjectMM"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.SearchMoviesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ViewProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ViewFavMoviesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ListMoviesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activities.ScanQRCodeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".HomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

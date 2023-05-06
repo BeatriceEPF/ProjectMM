@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_scanQRCode"
+        android:icon="@drawable/baseline_qr_code_scanner_24"
+        android:title="@string/text_menuButton_QRCode"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_listMovies"
+        android:icon="@drawable/baseline_view_list_24"
+        android:title="@string/text_menuButton_ListFilms"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_searchMovies"
+        android:icon="@drawable/baseline_search_24"
+        android:title="@string/text_menuButton_SearchFilms"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_favFilms"
+        android:icon="@drawable/baseline_favorite_24"
+        android:title="@string/text_menuButton_FavFilms"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/baseline_account_circle_24"
+        android:title="@string/text_menuButton_Profile"
+        app:showAsAction="ifRoom" />
+</menu>
