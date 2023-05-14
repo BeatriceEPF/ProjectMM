@@ -1,4 +1,4 @@
-package fr.epf.mm.gestionclient.model
+package com.example.projectmm.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
