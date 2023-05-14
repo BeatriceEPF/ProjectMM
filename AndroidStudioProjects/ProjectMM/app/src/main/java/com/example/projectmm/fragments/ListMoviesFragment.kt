@@ -1,11 +1,16 @@
 package com.example.projectmm.fragments
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.projectmm.R
+import com.example.projectmm.RetrofitHelper
+import com.example.projectmm.TheMovieDatabaseService
+import kotlinx.coroutines.runBlocking
+import retrofit2.create
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,6 +33,12 @@ class ListMoviesFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        val moviesAPI = RetrofitHelper.getInstance().create(TheMovieDatabaseService::class.java)
+        runBlocking {
+            val test = moviesAPI.getMovies()
+            Log.d("Test API", test.toString())
+        }
+
     }
 
     override fun onCreateView(
