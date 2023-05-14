@@ -6,11 +6,15 @@ import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET;
+import retrofit2.http.Path
 
 interface TheMovieDatabaseService {
 
-    @GET("3/trending/all/week?api_key=4c5fc9d212f1199cb82213673620b351")
+    @GET("trending/all/week?api_key=4c5fc9d212f1199cb82213673620b351")
     suspend fun getMovies() : GetMoviesResult
+
+    @GET("movie/{movie_id}?api_key=4c5fc9d212f1199cb82213673620b351")
+    suspend fun getMovieById(@Path("movie_id") id : Int): MoviesAPI
 }
 
 data class GetMoviesResult(val results: List<MoviesAPI>)
@@ -32,42 +36,25 @@ data class MoviesAPI(
     val vote_average: Float,
     val vote_count: Int
 ){
-    constructor(adult: Boolean?,
-                backdrop_path: String?,
-                budget: Int?,
-                id: Int?,
-                original_language: String?,
-                original_title: String?,
-                overview: String?,
-                popularity: Double?,
-                poster_path: String?,
-                release_date: String?,
-                revenue: Int?,
-                runtime: Int?,
-                title: String?,
-                video: Boolean?,
-                vote_average: Float?,
-                vote_count: Int?
-    )
-            : this(
-        adult ?: false,
-        backdrop_path ?: "No backdrop path",
-        budget ?: 0,
-        id ?: -99,
-        original_language ?: "No original language",
-        original_title ?: "No original title",
-        overview ?: "No overview",
-        popularity ?: 0.0,
-        poster_path ?: "No poster path",
-        release_date ?: " No release date",
-        revenue ?: 0,
-        runtime ?: 0,
-        title ?: "No title",
-        video ?: false,
-        (vote_average ?: 0) as Float,
-        vote_count ?: 0
-    )
 
+    fun filter() {
+        adult ?: false
+        backdrop_path ?: "No backdrop path"
+        budget ?: 0
+        id ?: -99
+        original_language ?: "No original language"
+        original_title ?: "No original title"
+        overview ?: "No overview"
+        popularity ?: 0.0
+        poster_path ?: "No poster path"
+        release_date ?: " No release date"
+        revenue ?: 0
+        runtime ?: 0
+        title ?: "No title"
+        video ?: false
+        vote_average ?: 0
+        vote_count ?: 0
+    }
     override fun toString(): String {
         return "MoviesAPI(adult=$adult, backdrop_path='$backdrop_path', budget=$budget, id=$id, original_language='$original_language', original_title='$original_title', overview='$overview', popularity=$popularity, poster_path='$poster_path', release_date='$release_date', revenue=$revenue, runtime=$runtime, title='$title', video=$video, vote_average=$vote_average, vote_count=$vote_count) \n"
     }
@@ -75,7 +62,7 @@ data class MoviesAPI(
 
 object RetrofitHelper {
 
-    val baseUrl = "https://api.themoviedb.org/"
+    val baseUrl = "https://api.themoviedb.org/3/"
 
     fun getInstance(): Retrofit {
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
