@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+//import coil.ImageLoader
+//import com.example.projectmm.ImageLoaderFactory
 import com.example.projectmm.R
 import com.example.projectmm.RetrofitHelper
 import com.example.projectmm.TheMovieDatabaseService
@@ -33,8 +35,11 @@ class ListMoviesFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
-        val moviesAPI = RetrofitHelper.getInstance().create(TheMovieDatabaseService::class.java)
+        val URL_image = "bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"
+        val moviesAPI = RetrofitHelper.getInstance("https://api.themoviedb.org/3/").create(TheMovieDatabaseService::class.java)
+        val imageAPI = RetrofitHelper.getInstance("https://image.tmdb.org/t/p/original/").create(TheMovieDatabaseService::class.java)
         runBlocking {
+            val test_image = imageAPI.getImageMovie(URL_image)
             val test = moviesAPI.getMovies()
             val test_id = moviesAPI.getMovieById(507250)
             Log.d("Test API", test.toString())

@@ -1,5 +1,7 @@
 package com.example.projectmm
 
+import android.media.Image
+//import coil.ImageLoader
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Call
@@ -8,21 +10,26 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET;
 import retrofit2.http.Path
 
+
 interface TheMovieDatabaseService {
 
     @GET("trending/all/week?api_key=4c5fc9d212f1199cb82213673620b351")
-    suspend fun getMovies() : GetMoviesResult
+    suspend fun getMovies(): GetMoviesResult
 
     @GET("movie/{movie_id}?api_key=4c5fc9d212f1199cb82213673620b351")
-    suspend fun getMovieById(@Path("movie_id") id : Int): MoviesAPI
+    suspend fun getMovieById(@Path("movie_id") id: Int): MoviesAPI
 
     @GET("movie/{movie_id}/similar?api_key=4c5fc9d212f1199cb82213673620b351")
-    suspend fun getSimilarMovies(@Path("movie_id") id : Int): GetMoviesResult
+    suspend fun getSimilarMovies(@Path("movie_id") id: Int): GetMoviesResult
 
     @GET("movie/{movie_id}/recommendations?api_key=4c5fc9d212f1199cb82213673620b351")
-    suspend fun getRecommendedMovies(@Path("movie_id") id : Int): GetMoviesResult
+    suspend fun getRecommendedMovies(@Path("movie_id") id: Int): GetMoviesResult
+
+    @GET("{URL_image}")
+    suspend fun getImageMovie(@Path("URL_image") logo_path : String): GetImageMovie
 }
 
+data class GetImageMovie(val logo_path: Image)
 data class GetMoviesResult(val results: List<MoviesAPI>)
 data class MoviesAPI(
     val adult: Boolean,
@@ -67,10 +74,11 @@ data class MoviesAPI(
 }
 
 object RetrofitHelper {
+    //https://image.tmdb.org/t/p/original/ + URLimage
 
-    val baseUrl = "https://api.themoviedb.org/3/"
+    //val baseUrl = "https://api.themoviedb.org/3/"
 
-    fun getInstance(): Retrofit {
+    fun getInstance(baseUrl: String): Retrofit {
         val httpLoggingInterceptor = HttpLoggingInterceptor().apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
@@ -84,5 +92,14 @@ object RetrofitHelper {
             .build()
     }
 }
+
+//object ImageLoaderFactory{
+//    fun newImageLoader(): ImageLoader {
+//        return ImageLoader.Builder(this)
+//            .crossfade(true)
+//            .build()
+//    }
+//}
+
 
 
