@@ -15,6 +15,12 @@ interface TheMovieDatabaseService {
 
     @GET("movie/{movie_id}?api_key=4c5fc9d212f1199cb82213673620b351")
     suspend fun getMovieById(@Path("movie_id") id : Int): MoviesAPI
+
+    @GET("movie/{movie_id}/similar?api_key=4c5fc9d212f1199cb82213673620b351")
+    suspend fun getSimilarMovies(@Path("movie_id") id : Int): GetMoviesResult
+
+    @GET("movie/{movie_id}/recommendations?api_key=4c5fc9d212f1199cb82213673620b351")
+    suspend fun getRecommendedMovies(@Path("movie_id") id : Int): GetMoviesResult
 }
 
 data class GetMoviesResult(val results: List<MoviesAPI>)

@@ -35,9 +35,9 @@ class ListMoviesFragment : Fragment() {
         }
         val moviesAPI = RetrofitHelper.getInstance().create(TheMovieDatabaseService::class.java)
         runBlocking {
-            //val test = moviesAPI.getMovies()
-            val test_id = moviesAPI.getMovieById(125988)
-            //Log.d("Test API", test.toString())
+            val test = moviesAPI.getMovies()
+            val test_id = moviesAPI.getMovieById(507250)
+            Log.d("Test API", test.toString())
             Log.d("Test API", test_id.toString())
         }
 
