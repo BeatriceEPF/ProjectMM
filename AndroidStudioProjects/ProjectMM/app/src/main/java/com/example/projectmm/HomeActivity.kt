@@ -115,7 +115,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
 
-    fun launchActivity(clss: Class<*>) {
+    private fun launchActivity(clss: Class<*>) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
             !== PackageManager.PERMISSION_GRANTED
         ) {

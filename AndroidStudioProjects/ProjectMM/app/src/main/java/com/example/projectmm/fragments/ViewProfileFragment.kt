@@ -1,11 +1,15 @@
 package com.example.projectmm.fragments
 
+import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.example.projectmm.R
+import com.example.projectmm.model.Profile
+import org.json.JSONObject
+import java.io.File
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,6 +40,58 @@ class ViewProfileFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_view_profile, container, false)
+    }
+
+
+
+    fun createJSONFromProfiles(profiles : ArrayList<Profile>): JSONObject {
+        val rootObject = JSONObject();
+        var cpt = 0;
+
+        for (profile in profiles)
+        {
+            rootObject.put("line", cpt++)
+            val profileObject = JSONObject()
+
+            profileObject.put("profile_id", profile.id);
+            profileObject.put("profile_passwd", profile.passwd);
+            profileObject.put("profile_fav", profile.favMoviesList);
+
+            rootObject.put("profile", profileObject)
+        }
+        return rootObject;
+    }
+
+    fun saveInternalData(fileName : String, profilesJson : JSONObject) {
+        val profilesString: String = profilesJson.toString()
+        val fos = activity?.openFileOutput(fileName, Context.MODE_PRIVATE)
+
+        fos?.write(profilesString.toByteArray());
+        fos?.close();
+    }
+
+    fun loadInternalData(fileName : String): ArrayList<Profile> {
+        val fin = activity?.openFileInput(fileName)
+
+        var c: Int
+        val profiles = ArrayList<Profile>()
+
+        val cpt = 0;
+
+        while (fin?.read() != -1) {
+            val id = fin?.read()?.toChar().toString()
+            val passwd = fin?.read()?.toChar().toString()
+
+            val favMoviesString = fin?.read()?.toChar().toString()
+            val favMovies = favMoviesString.substring(1, favMoviesString.length-1).split(",").toTypedArray()
+
+            var profile : Profile = Profile(id, passwd, favMovies)
+
+            profiles.add(profile)
+        }
+        fin.close()
+
+        return profiles
     }
 
     companion object {

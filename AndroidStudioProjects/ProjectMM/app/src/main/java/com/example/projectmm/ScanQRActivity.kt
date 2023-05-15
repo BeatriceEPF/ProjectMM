@@ -1,7 +1,9 @@
 package com.example.projectmm
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -31,10 +33,13 @@ class ScanQRActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
     }
 
     override fun handleResult(rawResult: Result) {
-        Toast.makeText(
-            this, "Contents = " + rawResult.text +
-                    ", Format = " + rawResult.barcodeFormat.toString(), Toast.LENGTH_SHORT
-        ).show()
+        Log.d("QRCode1", rawResult.text)
+        Log.d("QRCode2", rawResult.barcodeFormat.toString())
+
+        val intent = Intent(this, ViewMovieActivity::class.java)
+        intent.putExtra("movie_id", rawResult.text)
+        startActivity(intent)
+
 
         // Note:
         // * Wait 2 seconds to resume the preview.
