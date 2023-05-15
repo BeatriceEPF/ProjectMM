@@ -2,14 +2,16 @@ package com.example.projectmm.fragments
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.projectmm.R
 import com.example.projectmm.model.Profile
+import org.json.JSONArray
 import org.json.JSONObject
-import java.io.File
+
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -32,6 +34,9 @@ class ViewProfileFragment : Fragment() {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+
+        testJSONStorage()
+
     }
 
     override fun onCreateView(
@@ -42,57 +47,74 @@ class ViewProfileFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_view_profile, container, false)
     }
 
+    private fun testJSONStorage() {
+        // Create an ArrayList of profiles
+        val profiles = ArrayList<Profile>()
+
+        val profile1 = Profile("arthurDu78", "Homeland", arrayOf("15", "173", "21"))
+        val profile2 = Profile("florianDu92", "theDeep", arrayOf("4", "9", "7"))
+        val profile3 = Profile("beaDu91", "Butcher", arrayOf("34", "1", "982"))
+
+        profiles.add(profile1)
+        profiles.add(profile2)
+        profiles.add(profile3)
 
 
-    fun createJSONFromProfiles(profiles : ArrayList<Profile>): JSONObject {
+        // Convert the ArrayList to a JSON
+        val profilesJsonSaved = createJSONFromProfiles(profiles)
+
+        // Save the JSON to the internal Storage
+        val fileName = "ProfileSettings_ProjectMM.text"
+        saveInternalData(fileName, profilesJsonSaved)
+
+        // Load the JSON from the internal Storage
+        val profilesJsonLoaded = loadInternalData(fileName)
+
+        // Read from the Loaded JSON, tests
+        Log.d("JSON_LOADED_TEST", profilesJsonLoaded.toString())
+
+        val profile1Loaded = profilesJsonLoaded.getString("profile0")
+        Log.d("JSON_PARSE_TEST", profile1Loaded)
+    }
+
+    private fun createJSONFromProfiles(profiles : ArrayList<Profile>): JSONObject {
         val rootObject = JSONObject();
-        var cpt = 0;
 
-        for (profile in profiles)
+        for ((cpt, profile) in profiles.withIndex())
         {
-            rootObject.put("line", cpt++)
             val profileObject = JSONObject()
 
             profileObject.put("profile_id", profile.id);
             profileObject.put("profile_passwd", profile.passwd);
-            profileObject.put("profile_fav", profile.favMoviesList);
 
-            rootObject.put("profile", profileObject)
+            profileObject.put("movie", JSONArray(profile.favMoviesList))
+            // REPLACE ABOVE BY :
+            // for (favMovie in profile.favMoviesList) profileObject.put("movie", favMovie.id)
+
+            rootObject.put("profile$cpt", profileObject)
         }
         return rootObject;
     }
 
-    fun saveInternalData(fileName : String, profilesJson : JSONObject) {
-        val profilesString: String = profilesJson.toString()
-        val fos = activity?.openFileOutput(fileName, Context.MODE_PRIVATE)
+    private fun saveInternalData(fileName : String, profilesJson : JSONObject) {
+        val fileBody: String = profilesJson.toString()
 
-        fos?.write(profilesString.toByteArray());
-        fos?.close();
-    }
-
-    fun loadInternalData(fileName : String): ArrayList<Profile> {
-        val fin = activity?.openFileInput(fileName)
-
-        var c: Int
-        val profiles = ArrayList<Profile>()
-
-        val cpt = 0;
-
-        while (fin?.read() != -1) {
-            val id = fin?.read()?.toChar().toString()
-            val passwd = fin?.read()?.toChar().toString()
-
-            val favMoviesString = fin?.read()?.toChar().toString()
-            val favMovies = favMoviesString.substring(1, favMoviesString.length-1).split(",").toTypedArray()
-
-            var profile : Profile = Profile(id, passwd, favMovies)
-
-            profiles.add(profile)
+        activity?.openFileOutput(fileName, Context.MODE_PRIVATE).use { output ->
+            output?.write(fileBody.toByteArray())
         }
-        fin.close()
-
-        return profiles
     }
+
+    private fun loadInternalData(fileName : String): JSONObject {
+        activity?.openFileInput(fileName).use { stream ->
+            val text = stream?.bufferedReader().use {
+                it?.readText()
+            }
+            return JSONObject(text.toString())
+        }
+    }
+
+
+
 
     companion object {
         /**
