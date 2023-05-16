@@ -1,14 +1,23 @@
 package com.example.projectmm
 
-import android.media.Image
 //import coil.ImageLoader
+
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.media.Image
+import android.os.AsyncTask
+import android.util.Log
+import android.widget.ImageView
+import android.widget.Toast
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.GET;
+import retrofit2.http.GET
 import retrofit2.http.Path
+import com.example.projectmm.model.Movie
 
 
 interface TheMovieDatabaseService {
@@ -17,7 +26,7 @@ interface TheMovieDatabaseService {
     suspend fun getMovies(): GetMoviesResult
 
     @GET("movie/{movie_id}?api_key=4c5fc9d212f1199cb82213673620b351")
-    suspend fun getMovieById(@Path("movie_id") id: Int): MoviesAPI
+    suspend fun getMovieById(@Path("movie_id") id: Int): Movie
 
     @GET("movie/{movie_id}/similar?api_key=4c5fc9d212f1199cb82213673620b351")
     suspend fun getSimilarMovies(@Path("movie_id") id: Int): GetMoviesResult
@@ -30,51 +39,8 @@ interface TheMovieDatabaseService {
 }
 
 data class GetImageMovie(val logo_path: Image)
-data class GetMoviesResult(val results: List<MoviesAPI>)
-data class MoviesAPI(
-    val adult: Boolean,
-    val backdrop_path: String,
-    val budget: Int,
-    val id: Int,
-    val name: String,
-    val original_language: String,
-    val original_title: String,
-    val overview: String,
-    val popularity: Double,
-    val poster_path: String,
-    val release_date: String,
-    val revenue: Int,
-    val runtime: Int,
-    val title: String,
-    val video: Boolean,
-    val vote_average: Float,
-    val vote_count: Int
-){
+data class GetMoviesResult(val results: List<Movie>)
 
-//    fun filter() {
-//        adult ?: false
-//        backdrop_path ?: "No backdrop path"
-//        budget ?: 0
-//        id ?: -99
-//        original_language ?: "No original language"
-//        original_title ?: "No original title"
-//        overview ?: "No overview"
-//        popularity ?: 0.0
-//        poster_path ?: "No poster path"
-//        release_date ?: " No release date"
-//        revenue ?: 0
-//        runtime ?: 0
-//        title ?: "No title"
-//        video ?: false
-//        vote_average ?: 0
-//        vote_count ?: 0
-//    }
-
-    override fun toString(): String {
-        return "MoviesAPI(adult=$adult, backdrop_path='$backdrop_path', budget=$budget, id=$id, name='$name', original_language='$original_language', original_title='$original_title', overview='$overview', popularity=$popularity, poster_path='$poster_path', release_date='$release_date', revenue=$revenue, runtime=$runtime, title='$title', video=$video, vote_average=$vote_average, vote_count=$vote_count)"
-    }
-
-}
 
 object RetrofitHelper {
     //https://image.tmdb.org/t/p/original/ + URLimage
@@ -95,14 +61,29 @@ object RetrofitHelper {
             .build()
     }
 }
-
-//object ImageLoaderFactory{
-//    fun newImageLoader(): ImageLoader {
-//        return ImageLoader.Builder(this)
-//            .crossfade(true)
-//            .build()
-//    }
-//}
+@SuppressLint("StaticFieldLeak")
+@Suppress("DEPRECATION")
+class DownloadImageFromInternet(var imageView: ImageView, applicationContext: Context) : AsyncTask<String, Void, Bitmap?>() {
+    init {
+        Toast.makeText(applicationContext, "Please wait, it may take a few minute...",     Toast.LENGTH_SHORT).show()
+    }
+    override fun doInBackground(vararg urls: String): Bitmap? {
+        val imageURL = urls[0]
+        var image: Bitmap? = null
+        try {
+            val `in` = java.net.URL(imageURL).openStream()
+            image = BitmapFactory.decodeStream(`in`)
+        }
+        catch (e: Exception) {
+            Log.e("Error Message", e.message.toString())
+            e.printStackTrace()
+        }
+        return image
+    }
+    override fun onPostExecute(result: Bitmap?) {
+        imageView.setImageBitmap(result)
+    }
+}
 
 
 

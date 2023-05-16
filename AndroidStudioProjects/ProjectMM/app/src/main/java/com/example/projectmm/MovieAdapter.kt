@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.example.projectmm.model.Movie
 
 class ClientViewHolder(val view: View) : ViewHolder(view)
 
@@ -19,7 +20,7 @@ class ClientViewHolder(val view: View) : ViewHolder(view)
 //}
 
 
-class MovieAdapter(val movies: List<MoviesAPI>, val context: ListMoviesActivity) : RecyclerView.Adapter<ClientViewHolder>() {
+class MovieAdapter(val movies: List<Movie>, val context: ListMoviesActivity) : RecyclerView.Adapter<ClientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -30,14 +31,17 @@ class MovieAdapter(val movies: List<MoviesAPI>, val context: ListMoviesActivity)
     override fun getItemCount() = movies.size
 
     override fun onBindViewHolder(holder: ClientViewHolder, position: Int) {
-        val movie : MoviesAPI = movies[position]
+        val movie : Movie = movies[position]
 
         val view = holder.itemView
 
         val textView = view.findViewById<TextView>(R.id.movie_view_textview)
         textView.text = movie.title
         if (movie.title == null) textView.text = movie.name
+
  //       textView.text = "${client.firstName} ${client.lastName}"
+        DownloadImageFromInternet(view.findViewById(R.id.movie_view_imageview), context).execute("https://image.tmdb.org/t/p/original/" + movie.poster_path)
+
 
 //        val imageView = view.findViewById<ImageView>(R.id.client_view_imageview)
 //    /*    imageView.setImageResource(
