@@ -67,7 +67,8 @@ class HomeActivity : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.action_listMovies -> {
-                    loadFragment(ListMoviesFragment())
+                    val intent = Intent(this, ListMoviesActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.action_searchMovies -> {

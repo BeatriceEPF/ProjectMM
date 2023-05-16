@@ -19,6 +19,9 @@
         android:theme="@style/Theme.ProjectMM"
         tools:targetApi="31" >
         <activity
+            android:name=".ListMoviesActivity"
+            android:exported="false" />
+        <activity
             android:name=".ViewMovieActivity"
             android:exported="false" />
         <activity
