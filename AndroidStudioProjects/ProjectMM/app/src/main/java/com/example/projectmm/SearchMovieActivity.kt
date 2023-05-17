@@ -1,13 +1,10 @@
 package com.example.projectmm
 
-import android.annotation.SuppressLint
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.widget.EditText
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.runBlocking
 
@@ -15,7 +12,6 @@ class SearchMovieActivity : HomeActivity() {
 
     lateinit var recyclerView: RecyclerView
 
-    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
@@ -34,7 +30,7 @@ class SearchMovieActivity : HomeActivity() {
         searchEdittext.setOnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                     runBlocking {
-                        val searchResult = moviesAPI.getSearchMovies(searchEdittext.text.replace(" ".toRegex(), " "))
+                        val searchResult = moviesAPI.getSearchMovies(searchEdittext.text.toString())
                         recyclerView.adapter = MovieAdapter(searchResult.results.take(20), this@SearchMovieActivity)  // Limit to 10 movies
                     }
                     return@setOnKeyListener true

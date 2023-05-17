@@ -1,32 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchMovieActivity"
-
-    android:layout_marginRight="8dp"
     android:layout_marginLeft="8dp"
-    android:layout_marginTop="8dp"
 
-    android:orientation="vertical">
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="8dp"
+    android:orientation="vertical"
+
+    tools:context=".SearchMovieActivity">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/search_movie_or_tv_show"/>
+        android:text="@string/search_movie_or_tv_show" />
 
     <EditText
         android:id="@+id/search_movie_edittext"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:autofillHints="name"
+        android:inputType="textAutoComplete"
+        android:translationY="10dp"
+        tools:ignore="LabelFor" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movie_list_item"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationY="50dp" />
 
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -36,7 +40,6 @@
         android:layout_alignParentBottom="true"
         app:itemIconTint="@color/menu_items"
         app:itemTextColor="@color/menu_text"
-        app:menu="@menu/menu_principal">
-    </com.google.android.material.bottomnavigation.BottomNavigationView>
+        app:menu="@menu/menu_principal" />
 
 </RelativeLayout>
