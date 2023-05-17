@@ -50,7 +50,7 @@ class ListMoviesActivity : AppCompatActivity() {
             val test_id = moviesAPI.getMovieById(507250)
             Log.d("Test API", test.toString())
             Log.d("Test API", test_id.toString())
-            recyclerView.adapter = MovieAdapter(test.results)
+            recyclerView.adapter = MovieAdapter(test.results, this@ListMoviesActivity)
         }
 
     }

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MovieDetailsActivity">
+
+<!--    TODO constarints-->
+
+    <ImageView
+        android:id="@+id/details_movie_back_drop_imageview"
+        android:layout_width="362dp"
+        android:layout_height="342dp"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="26dp"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <RadioButton
+        android:id="@+id/like_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:button="@android:drawable/btn_star_big_on"
+        tools:layout_editor_absoluteX="347dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <ImageButton
+        android:id="@+id/QR_code_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/baseline_qr_code_scanner_24"
+        tools:layout_editor_absoluteX="17dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/details_movie_runtime_textview"
+        android:layout_width="201dp"
+        android:layout_height="58dp"
+        android:text="Durée"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="301dp" />
+
+    <TextView
+        android:id="@+id/details_movie_genre_textview"
+        android:layout_width="206dp"
+        android:layout_height="60dp"
+        android:text="Genre"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="359dp" />
+
+    <TextView
+        android:id="@+id/details_movie_title_textview"
+        android:layout_width="193dp"
+        android:layout_height="63dp"
+        android:text="Titre"
+        tools:layout_editor_absoluteX="24dp"
+        tools:layout_editor_absoluteY="163dp" />
+
+    <ImageView
+        android:id="@+id/details_movie_poster_imageview"
+        android:layout_width="136dp"
+        android:layout_height="203dp"
+        tools:layout_editor_absoluteX="17dp"
+        tools:layout_editor_absoluteY="233dp"
+        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+    <TextView
+        android:id="@+id/details_movie_type_textview"
+        android:layout_width="198dp"
+        android:layout_height="46dp"
+        android:text="Type"
+        tools:layout_editor_absoluteX="161dp"
+        tools:layout_editor_absoluteY="255dp" />
+
+    <TextView
+        android:id="@+id/details_movie_overview_textview"
+        android:layout_width="349dp"
+        android:layout_height="127dp"
+        android:text="Overview"
+        tools:layout_editor_absoluteX="21dp"
+        tools:layout_editor_absoluteY="448dp" />
+
+    <TextView
+        android:id="@+id/details_movie_details_textview"
+        android:layout_width="347dp"
+        android:layout_height="85dp"
+        android:text="Détails"
+        tools:layout_editor_absoluteX="20dp"
+        tools:layout_editor_absoluteY="599dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/movie_list_item"
+        android:layout_width="326dp"
+        android:layout_height="218dp"
+        tools:layout_editor_absoluteX="21dp"
+        tools:layout_editor_absoluteY="727dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
