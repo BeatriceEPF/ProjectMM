@@ -70,7 +70,7 @@ object RetrofitHelper {
 @Suppress("DEPRECATION")
 class DownloadImageFromInternet(var imageView: ImageView, applicationContext: Context) : AsyncTask<String, Void, Bitmap?>() {
     init {
-        Toast.makeText(applicationContext, "Please wait, it may take a few seconds...",     Toast.LENGTH_SHORT).show()
+        //Toast.makeText(applicationContext, "Please wait, it may take a few seconds...",     Toast.LENGTH_SHORT).show()
     }
     override fun doInBackground(vararg urls: String): Bitmap? {
         val imageURL = urls[0]

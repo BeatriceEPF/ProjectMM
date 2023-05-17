@@ -1,22 +1,13 @@
 package com.example.projectmm
 
-import android.annotation.SuppressLint
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.AsyncTask
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.runBlocking
-import com.example.projectmm.DownloadImageFromInternet
+
 
 /**
  * A simple [Fragment] subclass.
@@ -31,23 +22,18 @@ class ListMoviesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_movies)
         this.recyclerView = findViewById<RecyclerView>(R.id.movie_list_item)
-        recyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        recyclerView.layoutManager = GridLayoutManager(this, 1)
 
-        val URL_image = "bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"
         val moviesAPI = RetrofitHelper.getInstance("https://api.themoviedb.org/3/")
             .create(TheMovieDatabaseService::class.java)
-//        val imageAPI = RetrofitHelper.getInstance("https://image.tmdb.org/t/p/original/")
-//            .create(TheMovieDatabaseService::class.java)
 
-
-
+        //val pullToRefresh = findViewById<>(R.id.pullToRefresh);
 
 
         runBlocking {
-//            val test_image = imageAPI.getImageMovie(URL_image)
             val test = moviesAPI.getMovies()
-            recyclerView.adapter = MovieAdapter(test.results, this@ListMoviesActivity)
+            Log.d("API requests", test.results.take(10).toString())
+            recyclerView.adapter = MovieAdapter(test.results.take(10), this@ListMoviesActivity)
         }
 
     }

@@ -73,7 +73,7 @@ data class Genres(
     val name: String
 ) : Parcelable{
     override fun toString(): String {
-        return "Genres(id=$id, name='$name')"
+        return name
     }
 }
 

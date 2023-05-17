@@ -32,7 +32,7 @@ class MovieAdapter(val movies: List<Movie>, val context: Context) : RecyclerView
         val textView = view.findViewById<TextView>(R.id.movie_view_textview)
         textView.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
 
-        //DownloadImageFromInternet(view.findViewById(R.id.movie_view_imageview), context).execute("https://image.tmdb.org/t/p/original/" + movie.poster_path)
+        DownloadImageFromInternet(view.findViewById(R.id.movie_view_imageview), context).execute("https://image.tmdb.org/t/p/original/" + movie.poster_path)
 
 
         //imageView.setImageResource(movie.getImage())

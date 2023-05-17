@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.KeyEvent
 import android.widget.EditText
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.runBlocking
@@ -20,9 +21,7 @@ class SearchMovieActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_movie)
         this.recyclerView = findViewById<RecyclerView>(R.id.movie_list_item)
-        recyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        recyclerView.layoutManager = GridLayoutManager(this, 1)
 
 
         val searchEdittext = findViewById<EditText>(R.id.search_movie_edittext)

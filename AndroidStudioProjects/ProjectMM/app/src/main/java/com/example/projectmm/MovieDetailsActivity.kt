@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.runBlocking
@@ -30,8 +31,7 @@ class MovieDetailsActivity : AppCompatActivity() {
         val detailsTextView = findViewById<TextView>(R.id.details_movie_details_textview)
 
         this.recyclerView = findViewById<RecyclerView>(R.id.movie_list_item)
-        recyclerView.layoutManager =
-            LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
 
 
         runBlocking {
@@ -39,7 +39,7 @@ class MovieDetailsActivity : AppCompatActivity() {
             titleTextview.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
             overviewTextview.text = movie?.overview
 
-            runtimeTextView.text = movie?.runtime.toString()
+            runtimeTextView.text = movie?.runtime.toString() + " min"
             genreTextView.text = movie?.genres.toString()
             DownloadImageFromInternet(findViewById(R.id.details_movie_poster_imageview), applicationContext).execute("https://image.tmdb.org/t/p/original/" + movie?.poster_path)
             DownloadImageFromInternet(findViewById(R.id.details_movie_back_drop_imageview), applicationContext).execute("https://image.tmdb.org/t/p/original/" + movie?.backdrop_path)
