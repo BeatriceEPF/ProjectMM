@@ -40,7 +40,7 @@ class MovieAdapter(val movies: List<Movie>, val context: Context) : RecyclerView
         val cardView = view.findViewById<CardView>(R.id.movie_list_item)
         cardView.setOnClickListener {
             val intent = Intent(context, MovieDetailsActivity::class.java)
-            intent.putExtra("movie", movie)
+            intent.putExtra("movie_id", movie.id)
             context.startActivity(intent)
         }
     }

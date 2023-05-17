@@ -47,9 +47,6 @@ class ListMoviesActivity : AppCompatActivity() {
         runBlocking {
 //            val test_image = imageAPI.getImageMovie(URL_image)
             val test = moviesAPI.getMovies()
-            val test_id = moviesAPI.getMovieById(507250)
-            Log.d("Test API", test.toString())
-            Log.d("Test API", test_id.toString())
             recyclerView.adapter = MovieAdapter(test.results, this@ListMoviesActivity)
         }
 

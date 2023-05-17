@@ -18,6 +18,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import com.example.projectmm.model.Movie
+import com.example.projectmm.model.MovieDetail
 import retrofit2.http.Query
 
 
@@ -27,7 +28,7 @@ interface TheMovieDatabaseService {
     suspend fun getMovies(): GetMoviesResult
 
     @GET("movie/{movie_id}?api_key=4c5fc9d212f1199cb82213673620b351")
-    suspend fun getMovieById(@Path("movie_id") id: Int): Movie
+    suspend fun getMovieById(@Path("movie_id") id: Int): MovieDetail
 
     @GET("movie/{movie_id}/similar?api_key=4c5fc9d212f1199cb82213673620b351")
     suspend fun getSimilarMovies(@Path("movie_id") id: Int): GetMoviesResult
@@ -69,7 +70,7 @@ object RetrofitHelper {
 @Suppress("DEPRECATION")
 class DownloadImageFromInternet(var imageView: ImageView, applicationContext: Context) : AsyncTask<String, Void, Bitmap?>() {
     init {
-        Toast.makeText(applicationContext, "Please wait, it may take a few minute...",     Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "Please wait, it may take a few seconds...",     Toast.LENGTH_SHORT).show()
     }
     override fun doInBackground(vararg urls: String): Bitmap? {
         val imageURL = urls[0]
