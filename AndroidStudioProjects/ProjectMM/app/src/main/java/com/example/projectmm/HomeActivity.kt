@@ -16,7 +16,7 @@ import com.example.projectmm.fragments.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
-class HomeActivity : AppCompatActivity() {
+open class HomeActivity : AppCompatActivity() {
 
     private val ZXING_CAMERA_PERMISSION = 1
     private var mClss: Class<*>? = null
@@ -25,32 +25,55 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-        loadFragment(HomeFragment())
+        setBottomBarListener()
+    }
+
+    fun setGlobalVarTests() {
+        // TESTS ON GLOBAL VAR
+        val global = applicationContext as Global
+        val profileId = global.getProfileId();
+        Log.d("GLOBAL_VAR_HOME_TEST", profileId.toString())
+        global.setProfileId(true);
+    }
+
+    fun setBottomBarListener() {
+        //loadFragment(HomeFragment())
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav);
 
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
                 R.id.action_listMovies -> {
-                    val intent = Intent(this, ListMoviesActivity::class.java)
-                    startActivity(intent)
+                    if(this.localClassName != "ListMoviesActivity") {
+                        val intent = Intent(this, ListMoviesActivity::class.java)
+                        startActivity(intent)
+                    }
                     true
                 }
                 R.id.action_searchMovies -> {
                     //loadFragment(SearchMoviesFragment())
-                    val intent = Intent(this, SearchMovieActivity::class.java)
-                    startActivity(intent)
+                    if(this.localClassName != "SearchMovieActivity") {
+                        val intent = Intent(this, SearchMovieActivity::class.java)
+                        startActivity(intent)
+                    }
                     true
                 }
                 R.id.action_favFilms -> {
-                    loadFragment(ViewFavMoviesFragment())
+                    //loadFragment(ViewFavMoviesFragment())
+                    if(this.localClassName != "ViewFavMoviesActivity") {
+                        val intent = Intent(this, ViewFavMoviesActivity::class.java)
+                        startActivity(intent)
+                    }
                     true
                 }
                 R.id.action_profile -> {
-                    loadFragment(ViewProfileFragment())
+                    //loadFragment(ViewProfileFragment())
+                    if(this.localClassName != "ViewProfileActivity") {
+                        val intent = Intent(this, ViewProfileActivity::class.java)
+                        startActivity(intent)
+                    }
                     true
                 }
                 R.id.action_scanQRCode -> {
-                    //val intent = Intent(this, SimpleScannerActivity::class.java)
                     launchActivity(ScanQRActivity::class.java)
                     true
                 }
@@ -59,23 +82,20 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
-
-        // TESTS ON GLOBAL VAR
-        val global = applicationContext as Global
-        val profileId = global.getProfileId();
-        Log.d("GLOBAL_VAR_HOME_TEST", profileId.toString())
-        global.setProfileId(true);
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.home_menu,menu)
+        menuInflater.inflate(R.menu.menu_home,menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.action_returnHome -> {
-                loadFragment(HomeFragment())
+                if(this.localClassName != "HomeActivity") {
+                    val intent = Intent(this, HomeActivity::class.java)
+                    startActivity(intent)
+                }
             }
         }
         return super.onOptionsItemSelected(item)
@@ -101,8 +121,7 @@ class HomeActivity : AppCompatActivity() {
             startActivity(intent)
         }
     }
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray)
-    {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             ZXING_CAMERA_PERMISSION -> {

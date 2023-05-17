@@ -36,7 +36,7 @@ class ScanQRActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         Log.d("QRCode1", rawResult.text)
         Log.d("QRCode2", rawResult.barcodeFormat.toString())
 
-        val intent = Intent(this, ViewMovieActivity::class.java)
+        val intent = Intent(this, MovieDetailsActivity::class.java)
         intent.putExtra("movie_id", rawResult.text)
         startActivity(intent)
 

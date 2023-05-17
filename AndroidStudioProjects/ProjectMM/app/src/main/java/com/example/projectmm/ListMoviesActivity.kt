@@ -14,13 +14,16 @@ import kotlinx.coroutines.runBlocking
  * Use the [ListMoviesFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class ListMoviesActivity : AppCompatActivity() {
+class ListMoviesActivity : HomeActivity() {
     // TODO: Rename and change types of parameters
     lateinit var recyclerView: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_movies)
+
+        super.setBottomBarListener()
+
         this.recyclerView = findViewById<RecyclerView>(R.id.movie_list_item)
         recyclerView.layoutManager = GridLayoutManager(this, 1)
 

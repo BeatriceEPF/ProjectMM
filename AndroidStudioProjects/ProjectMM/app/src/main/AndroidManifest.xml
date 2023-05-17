@@ -11,7 +11,6 @@
 
     <application
         android:name=".Global"
-
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -20,6 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectMM"
         tools:targetApi="31">
+        <activity
+            android:name=".ViewFavMoviesActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ViewProfileActivity"
+            android:exported="false" />
         <activity
             android:name=".MovieDetailsActivity"
             android:exported="false"
@@ -30,10 +35,6 @@
             android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".ListMoviesActivity"
-            android:exported="false"
-            android:parentActivityName=".HomeActivity" />
-        <activity
-            android:name=".ViewMovieActivity"
             android:exported="false"
             android:parentActivityName=".HomeActivity" />
         <activity

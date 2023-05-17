@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.runBlocking
 
-class SearchMovieActivity : AppCompatActivity() {
+class SearchMovieActivity : HomeActivity() {
 
     lateinit var recyclerView: RecyclerView
 
@@ -20,6 +20,9 @@ class SearchMovieActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_movie)
+
+        super.setBottomBarListener()
+
         this.recyclerView = findViewById<RecyclerView>(R.id.movie_list_item)
         recyclerView.layoutManager = GridLayoutManager(this, 1)
 
