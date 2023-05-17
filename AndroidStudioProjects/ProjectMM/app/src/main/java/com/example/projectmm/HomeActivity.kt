@@ -72,7 +72,9 @@ class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.action_searchMovies -> {
-                    loadFragment(SearchMoviesFragment())
+                    //loadFragment(SearchMoviesFragment())
+                    val intent = Intent(this, SearchMovieActivity::class.java)
+                    startActivity(intent)
                     true
                 }
                 R.id.action_favFilms -> {

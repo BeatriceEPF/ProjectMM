@@ -18,6 +18,7 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Path
 import com.example.projectmm.model.Movie
+import retrofit2.http.Query
 
 
 interface TheMovieDatabaseService {
@@ -34,8 +35,11 @@ interface TheMovieDatabaseService {
     @GET("movie/{movie_id}/recommendations?api_key=4c5fc9d212f1199cb82213673620b351")
     suspend fun getRecommendedMovies(@Path("movie_id") id: Int): GetMoviesResult
 
-    @GET("{URL_image}")
-    suspend fun getImageMovie(@Path("URL_image") logo_path : String): GetImageMovie
+    @GET("search/movie?api_key=4c5fc9d212f1199cb82213673620b351")
+    suspend fun getSearchMovies(@Query("query") search: String): GetMoviesResult
+
+//    @GET("{URL_image}")
+//    suspend fun getImageMovie(@Path("URL_image") logo_path : String): GetImageMovie
 }
 
 data class GetImageMovie(val logo_path: Image)

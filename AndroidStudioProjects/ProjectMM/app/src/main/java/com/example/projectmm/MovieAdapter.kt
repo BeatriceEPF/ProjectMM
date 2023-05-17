@@ -10,17 +10,8 @@ import com.example.projectmm.model.Movie
 
 class ClientViewHolder(val view: View) : ViewHolder(view)
 
-//class ClientViewHolder extends ViewHolder {
-//
-//    private View view;
-//    public ClientViewHolder(View view){
-//        super(view);
-//        this.view = view;
-//    }
-//}
 
-
-class MovieAdapter(val movies: List<Movie>, val context: ListMoviesActivity) : RecyclerView.Adapter<ClientViewHolder>() {
+class MovieAdapter(val movies: List<Movie>) : RecyclerView.Adapter<ClientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -39,17 +30,9 @@ class MovieAdapter(val movies: List<Movie>, val context: ListMoviesActivity) : R
         textView.text = movie.title
         if (movie.title == null) textView.text = movie.name
 
- //       textView.text = "${client.firstName} ${client.lastName}"
-        DownloadImageFromInternet(view.findViewById(R.id.movie_view_imageview), context).execute("https://image.tmdb.org/t/p/original/" + movie.poster_path)
+        //DownloadImageFromInternet(view.findViewById(R.id.movie_view_imageview), context).execute("https://image.tmdb.org/t/p/original/" + movie.poster_path)
 
 
-//        val imageView = view.findViewById<ImageView>(R.id.client_view_imageview)
-//    /*    imageView.setImageResource(
-//            when(client.gender){
-//                Gender.MAN -> R.drawable.man
-//                Gender.WOMAN -> R.drawable.woman
-//            }
-//        )  */
 //        imageView.setImageResource(movie.getImage())
 //
 //        val cardView = view.findViewById<CardView>(R.id.client_view_cardview)

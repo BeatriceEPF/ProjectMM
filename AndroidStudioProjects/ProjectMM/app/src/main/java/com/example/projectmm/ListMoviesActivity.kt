@@ -37,48 +37,11 @@ class ListMoviesActivity : AppCompatActivity() {
         val URL_image = "bOGkgRGdhrBYJSLpXaxhXVstddV.jpg"
         val moviesAPI = RetrofitHelper.getInstance("https://api.themoviedb.org/3/")
             .create(TheMovieDatabaseService::class.java)
-        val imageAPI = RetrofitHelper.getInstance("https://image.tmdb.org/t/p/original/")
-            .create(TheMovieDatabaseService::class.java)
+//        val imageAPI = RetrofitHelper.getInstance("https://image.tmdb.org/t/p/original/")
+//            .create(TheMovieDatabaseService::class.java)
 
 
 
-//        val imageView = activity?.findViewById<ImageView>(R.id.movie_list_item)
-//
-//        // Declaring executor to parse the URL
-//        val executor = Executors.newSingleThreadExecutor()
-//
-//        // Once the executor parses the URL
-//        // and receives the image, handler will load it
-//        // in the ImageView
-//        val handler = Handler(Looper.getMainLooper())
-//
-//        // Initializing the image
-//        var image: Bitmap? = null
-//
-//        // Only for Background process (can take time depending on the Internet speed)
-//        executor.execute {
-//
-//            // Image URL
-//            val imageURL = "https://media.geeksforgeeks.org/wp-content/cdn-uploads/gfg_200x200-min.png"
-//
-//            // Tries to get the image and post it in the ImageView
-//            // with the help of Handler
-//            try {
-//                val `in` = java.net.URL(imageURL).openStream()
-//                image = BitmapFactory.decodeStream(`in`)
-//
-//                // Only for making changes in UI
-//                handler.post {
-//                    imageView?.setImageBitmap(image)
-//                }
-//            }
-//
-//            // If the URL doesnot point to
-//            // image or any other kind of failure
-//            catch (e: Exception) {
-//                e.printStackTrace()
-//            }
-//        }
 
 
         runBlocking {
@@ -87,7 +50,7 @@ class ListMoviesActivity : AppCompatActivity() {
             val test_id = moviesAPI.getMovieById(507250)
             Log.d("Test API", test.toString())
             Log.d("Test API", test_id.toString())
-            recyclerView.adapter = MovieAdapter(test.results, this@ListMoviesActivity)
+            recyclerView.adapter = MovieAdapter(test.results)
         }
 
     }
