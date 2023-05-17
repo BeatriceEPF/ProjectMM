@@ -19,6 +19,12 @@ class ViewMovieActivity : AppCompatActivity()
         val textview = findViewById<TextView>(R.id.id_holder_textview)
         textview.text = (movieId ?: "none")
 
+
+        // TESTS ON GLOBAL VAR
+        val global = applicationContext as Global
+        val profileId = global.getProfileId();
+        Log.d("GLOBAL_VAR_MOVIE_VIEW_TEST", profileId.toString())
+
     }
 
 }

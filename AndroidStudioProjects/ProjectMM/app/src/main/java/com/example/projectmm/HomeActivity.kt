@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -24,45 +25,8 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
-
         loadFragment(HomeFragment())
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav);
-
-        /*
-        bottomNav.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.action_scanQRCode -> {
-                    val intent = Intent(this, ScanQRCodeActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.action_listFilms -> {
-                    val intent = Intent(this, ListMoviesActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.action_searchMovies -> {
-                    val intent = Intent(this, SearchMoviesActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.action_favFilms -> {
-                    val intent = Intent(this, ViewFavMoviesActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                R.id.action_profile -> {
-                    val intent = Intent(this, ViewProfileActivity::class.java)
-                    startActivity(intent)
-                    true
-                }
-                else -> {
-                    true
-                }
-            }
-        }
-
-         */
 
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
@@ -95,6 +59,12 @@ class HomeActivity : AppCompatActivity() {
                 }
             }
         }
+
+        // TESTS ON GLOBAL VAR
+        val global = applicationContext as Global
+        val profileId = global.getProfileId();
+        Log.d("GLOBAL_VAR_HOME_TEST", profileId.toString())
+        global.setProfileId(true);
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
