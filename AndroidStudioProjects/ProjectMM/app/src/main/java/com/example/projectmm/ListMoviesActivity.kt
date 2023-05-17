@@ -1,11 +1,15 @@
 package com.example.projectmm
 
 import android.os.Bundle
+import android.os.Handler
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import kotlinx.coroutines.runBlocking
 
 
@@ -17,6 +21,7 @@ import kotlinx.coroutines.runBlocking
 class ListMoviesActivity : HomeActivity() {
     // TODO: Rename and change types of parameters
     lateinit var recyclerView: RecyclerView
+    lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,15 +34,26 @@ class ListMoviesActivity : HomeActivity() {
 
         val moviesAPI = RetrofitHelper.getInstance("https://api.themoviedb.org/3/")
             .create(TheMovieDatabaseService::class.java)
-
-        //val pullToRefresh = findViewById<>(R.id.pullToRefresh);
-
-
         runBlocking {
+            Toast.makeText(applicationContext, "Scroll down to get more !", Toast.LENGTH_SHORT).show()
             val test = moviesAPI.getMovies()
-            Log.d("API requests", test.results.take(10).toString())
-            recyclerView.adapter = MovieAdapter(test.results.take(10), this@ListMoviesActivity)
+            recyclerView.adapter = MovieAdapter(test.results.take(5), this@ListMoviesActivity)
         }
+    }
 
+    override fun onStart() {
+        super.onStart()
+        val moviesAPI = RetrofitHelper.getInstance("https://api.themoviedb.org/3/")
+            .create(TheMovieDatabaseService::class.java)
+
+        swipeRefreshLayout = findViewById(R.id.pullToRefresh)
+
+        swipeRefreshLayout.setOnRefreshListener {
+            runBlocking {
+                val test = moviesAPI.getMovies()
+                recyclerView.adapter = MovieAdapter(test.results.take(20), this@ListMoviesActivity)
+            }
+            swipeRefreshLayout.isRefreshing = false
+        }
     }
 }

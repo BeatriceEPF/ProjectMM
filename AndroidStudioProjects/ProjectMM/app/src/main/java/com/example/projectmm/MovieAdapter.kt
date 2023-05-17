@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import com.bumptech.glide.Glide
 import com.example.projectmm.model.Movie
 
 class ClientViewHolder(val view: View) : ViewHolder(view)
@@ -32,7 +33,11 @@ class MovieAdapter(val movies: List<Movie>, val context: Context) : RecyclerView
         val textView = view.findViewById<TextView>(R.id.movie_view_textview)
         textView.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
 
-        DownloadImageFromInternet(view.findViewById(R.id.movie_view_imageview), context).execute("https://image.tmdb.org/t/p/original/" + movie.poster_path)
+        //DownloadImageFromInternet(view.findViewById(R.id.movie_view_imageview), context).execute("https://image.tmdb.org/t/p/original/" + movie.poster_path)
+        Glide.with(context)
+            .load("https://image.tmdb.org/t/p/original/" + movie.poster_path)
+            .into(view.findViewById(R.id.movie_view_imageview))
+
 
 
         //imageView.setImageResource(movie.getImage())

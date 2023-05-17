@@ -35,8 +35,7 @@ class SearchMovieActivity : HomeActivity() {
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                     runBlocking {
                         val searchResult = moviesAPI.getSearchMovies(searchEdittext.text.replace(" ".toRegex(), " "))
-                        recyclerView.adapter = MovieAdapter(searchResult.results.take(10), this@SearchMovieActivity)  // Limit to 10 movies
-                        Log.d("Test search", searchEdittext.text.replace(" ".toRegex(), "+"))
+                        recyclerView.adapter = MovieAdapter(searchResult.results.take(20), this@SearchMovieActivity)  // Limit to 10 movies
                     }
                     return@setOnKeyListener true
                 }
