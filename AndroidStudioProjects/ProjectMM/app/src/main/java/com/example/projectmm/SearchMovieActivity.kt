@@ -29,12 +29,12 @@ class SearchMovieActivity : HomeActivity() {
 
         searchEdittext.setOnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                    runBlocking {
-                        val searchResult = moviesAPI.getSearchMovies(searchEdittext.text.toString())
-                        recyclerView.adapter = MovieAdapter(searchResult.results.take(20), this@SearchMovieActivity)  // Limit to 10 movies
-                    }
-                    return@setOnKeyListener true
+                runBlocking {
+                    val searchResult = moviesAPI.getSearchMovies(searchEdittext.text.toString())
+                    recyclerView.adapter = MovieAdapter(searchResult.results.take(20), this@SearchMovieActivity)  // Limit to 10 movies
                 }
+                return@setOnKeyListener true
+            }
             else {
                 // Trying to see which one is the enter ON PHONE KEYBOARD
                 Log.d("keyCode", keyCode.toString())

@@ -8,7 +8,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".Global"
@@ -20,6 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProjectMM"
         tools:targetApi="31">
+        <activity
+            android:name=".SearchMovieActivity"
+            android:exported="false"
+            android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".ConnectProfileActivity"
             android:exported="false" />
@@ -33,10 +37,6 @@
             android:name=".MovieDetailsActivity"
             android:exported="false"
             android:parentActivityName=".ListMoviesActivity" />
-        <activity
-            android:name=".SearchMovieActivity"
-            android:exported="false"
-            android:parentActivityName=".HomeActivity" />
         <activity
             android:name=".ListMoviesActivity"
             android:exported="false"
