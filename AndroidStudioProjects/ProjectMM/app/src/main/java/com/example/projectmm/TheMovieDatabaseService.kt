@@ -24,7 +24,7 @@ import retrofit2.http.Query
 
 interface TheMovieDatabaseService {
 
-    @GET("trending/all/week?api_key=4c5fc9d212f1199cb82213673620b351")
+    @GET("trending/all/day?api_key=4c5fc9d212f1199cb82213673620b351")
     suspend fun getMovies(): GetMoviesResult
 
     @GET("movie/{movie_id}?api_key=4c5fc9d212f1199cb82213673620b351")
@@ -38,9 +38,6 @@ interface TheMovieDatabaseService {
 
     @GET("search/movie?api_key=4c5fc9d212f1199cb82213673620b351")
     suspend fun getSearchMovies(@Query("query") search: String): GetMoviesResult
-
-//    @GET("{URL_image}")
-//    suspend fun getImageMovie(@Path("URL_image") logo_path : String): GetImageMovie
 }
 
 data class GetImageMovie(val logo_path: Image)
@@ -70,7 +67,7 @@ object RetrofitHelper {
 @Suppress("DEPRECATION")
 class DownloadImageFromInternet(var imageView: ImageView, applicationContext: Context) : AsyncTask<String, Void, Bitmap?>() {
     init {
-        //Toast.makeText(applicationContext, "Please wait, it may take a few seconds...",     Toast.LENGTH_SHORT).show()
+        Toast.makeText(applicationContext, "Please wait, it may take a few seconds...",     Toast.LENGTH_SHORT).show()
     }
     override fun doInBackground(vararg urls: String): Bitmap? {
         val imageURL = urls[0]

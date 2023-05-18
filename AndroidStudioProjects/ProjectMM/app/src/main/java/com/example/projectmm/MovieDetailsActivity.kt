@@ -8,6 +8,7 @@ import android.view.MenuItem
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import kotlinx.coroutines.runBlocking
 
 class MovieDetailsActivity : HomeActivity() {
@@ -44,8 +45,14 @@ class MovieDetailsActivity : HomeActivity() {
 
             runtimeTextView.text = movie?.runtime.toString() + " min"
             genreTextView.text = movie?.genres.toString()
-            DownloadImageFromInternet(findViewById(R.id.details_movie_poster_imageview), applicationContext).execute("https://image.tmdb.org/t/p/original/" + movie?.poster_path)
-            DownloadImageFromInternet(findViewById(R.id.details_movie_back_drop_imageview), applicationContext).execute("https://image.tmdb.org/t/p/original/" + movie?.backdrop_path)
+            Glide.with(this@MovieDetailsActivity)
+                .load("https://image.tmdb.org/t/p/original/" + movie?.poster_path)
+                .into(findViewById(R.id.details_movie_poster_imageview))
+            Glide.with(this@MovieDetailsActivity)
+                .load("https://image.tmdb.org/t/p/original/" + movie?.backdrop_path)
+                .into(findViewById(R.id.details_movie_back_drop_imageview))
+//            DownloadImageFromInternet(findViewById(R.id.details_movie_poster_imageview), applicationContext).execute("https://image.tmdb.org/t/p/original/" + movie?.poster_path)
+//            DownloadImageFromInternet(findViewById(R.id.details_movie_back_drop_imageview), applicationContext).execute("https://image.tmdb.org/t/p/original/" + movie?.backdrop_path)
 
             val recommended = movieID?.let {
                 moviesAPI.getRecommendedMovies(it)

@@ -28,8 +28,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/movie_list_item"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="620dp"
         android:translationY="50dp" />
 
 
