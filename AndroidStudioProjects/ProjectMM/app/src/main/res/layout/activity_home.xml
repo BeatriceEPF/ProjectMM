@@ -7,21 +7,270 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-    <FrameLayout
-        android:id="@+id/homeContainer"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/bottomNav">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="430dp"
-            android:textSize="35sp"
-            android:gravity="center"
-            android:text="MenuPrincipal" />
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
 
-    </FrameLayout>
+            <TextView
+                android:id="@+id/app_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+
+                android:textSize="35sp"
+                android:gravity="center"
+                android:textStyle="bold|italic"
+                android:textColor="@color/account_round"
+
+                android:text="MOVIE ME" />
+            <TextView
+                android:id="@+id/app_slogan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="10dp"
+
+                android:textSize="20sp"
+                android:gravity="center"
+                android:textStyle="italic"
+                android:textColor="@color/account_round"
+
+                android:text="La crème des applications"
+
+                android:layout_below="@id/app_name"/>
+
+            <TextView
+                android:id="@+id/app_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+
+                android:textSize="16sp"
+                android:justificationMode="inter_word"
+                android:text="Sur notre application tu trouveras exactement le film que tu cherches, du grand opus du moment à l'indémodable classique. Construit tes propres souvenirs en créant ton compte et en entretenant la liste de tes films favoris ! Le cinéma est là, à portée de click"
+                android:layout_below="@id/app_slogan"/>
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/app_description"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="5dp"
+                android:layout_marginVertical="2dp"
+                android:background="@drawable/rounded_box">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:text="Co-créateur"
+                    android:gravity="left"
+                    android:textStyle="bold|italic"
+                    tools:ignore="RtlHardcoded"
+                    android:textColor="@color/white"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:text="Florian GUYOT"
+                    android:gravity="right"
+                    tools:ignore="RtlHardcoded"
+                    android:textColor="@color/white"/>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relativeLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeLayout1"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="5dp"
+                android:layout_marginVertical="2dp"
+                android:background="@drawable/rounded_box">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:text="Co-créateur"
+                    android:gravity="left"
+                    android:textStyle="bold|italic"
+                    android:textColor="@color/white"
+                    tools:ignore="RtlHardcoded" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:text="Béatrice GARCIA CEGARRA"
+                    android:gravity="right"
+                    tools:ignore="RtlHardcoded"
+                    android:textColor="@color/white"/>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relativeLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeLayout2"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="5dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/rounded_box">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:text="Classe"
+                    android:gravity="left"
+                    android:textColor="@color/white"
+                    android:textStyle="bold|italic"
+                    tools:ignore="RtlHardcoded" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:text="PSFGE4 MIN1"
+                    android:gravity="right"
+                    tools:ignore="RtlHardcoded"
+                    android:textColor="@color/white"/>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relativeLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeLayout3"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="5dp"
+                android:layout_marginVertical="2dp"
+                android:background="@drawable/rounded_box">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:text="Cours"
+                    android:gravity="left"
+                    android:textColor="@color/white"
+                    android:textStyle="bold|italic"
+                    tools:ignore="RtlHardcoded" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:text="Matériels Mobiles"
+                    android:gravity="right"
+                    tools:ignore="RtlHardcoded"
+                    android:textColor="@color/white"/>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relativeLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeLayout4"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="5dp"
+                android:layout_marginVertical="2dp"
+                android:background="@drawable/rounded_box">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:text="Professeur"
+                    android:gravity="left"
+                    android:textColor="@color/white"
+                    android:textStyle="bold|italic"
+                    tools:ignore="RtlHardcoded" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:text="Cyril DUMONT"
+                    android:gravity="right"
+                    tools:ignore="RtlHardcoded"
+                    android:textColor="@color/white"/>
+
+
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/relativeLayout6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/relativeLayout5"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="5dp"
+                android:layout_marginVertical="2dp"
+                android:background="@drawable/rounded_box">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:text="Etablissement"
+                    android:gravity="left"
+                    android:textColor="@color/white"
+                    android:textStyle="bold|italic"
+                    tools:ignore="RtlHardcoded" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:text="EPF école d'ingénieurs"
+                    android:gravity="right"
+                    tools:ignore="RtlHardcoded"
+                    android:textColor="@color/white"/>
+
+
+            </RelativeLayout>
+
+            <ImageView
+                android:id="@+id/round_account"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="70dp"
+                app:srcCompat="@drawable/epf_logo"
+                android:layout_below="@id/relativeLayout6"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"
@@ -30,7 +279,7 @@
         android:layout_alignParentBottom="true"
         app:itemIconTint="@color/menu_items"
         app:itemTextColor="@color/menu_text"
-        app:menu="@menu/menu_principal">
+        app:menu="@menu/menu_bottom_nav">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 

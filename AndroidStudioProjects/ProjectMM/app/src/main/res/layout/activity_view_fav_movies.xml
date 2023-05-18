@@ -19,7 +19,7 @@
         android:layout_alignParentBottom="true"
         app:itemIconTint="@color/menu_items"
         app:itemTextColor="@color/menu_text"
-        app:menu="@menu/menu_principal">
+        app:menu="@menu/menu_bottom_nav">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 
 </RelativeLayout>

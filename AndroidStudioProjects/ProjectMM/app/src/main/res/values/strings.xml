@@ -9,5 +9,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="search_movie_or_tv_show">Search movie or TV show</string>
+    <string name="text_menuButton_Home">Accueil</string>
+    <string name="enter_profile_Id_textview">IDENTIFIANT</string>
+    <string name="enter_profile_Passwd_textview">MOT DE PASSE</string>
 
 </resources>

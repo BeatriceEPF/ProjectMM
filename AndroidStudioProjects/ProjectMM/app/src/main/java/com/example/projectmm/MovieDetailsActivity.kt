@@ -59,17 +59,21 @@ class MovieDetailsActivity : HomeActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_home,menu)
+        menuInflater.inflate(R.menu.menu_details,menu)
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
+            R.id.action_addToFav -> {
+                // TODO: Add movie to Favorites
+            }
+            R.id.action_viewQRCode -> {
+                // TODO: Show movie QR Code
+            }
             R.id.action_returnHome -> {
-                if(this.localClassName != "HomeActivity") {
-                    val intent = Intent(this, HomeActivity::class.java)
-                    startActivity(intent)
-                }
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
             }
         }
         return super.onOptionsItemSelected(item)

@@ -37,9 +37,8 @@ class ScanQRActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         Log.d("QRCode2", rawResult.barcodeFormat.toString())
 
         val intent = Intent(this, MovieDetailsActivity::class.java)
-        intent.putExtra("movie_id", rawResult.text)
+        intent.putExtra("movie_id", rawResult.text.toInt())
         startActivity(intent)
-
 
         // Note:
         // * Wait 2 seconds to resume the preview.

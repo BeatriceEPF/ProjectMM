@@ -11,8 +11,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import com.example.projectmm.fragments.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 @Suppress("DEPRECATED_IDENTITY_EQUALS")
@@ -28,16 +26,21 @@ open class HomeActivity : AppCompatActivity() {
         setBottomBarListener()
     }
 
-    fun setGlobalVarTests() {
-        // TESTS ON GLOBAL VAR
+    override fun onRestart() {
+        super.onRestart()
+        this.recreate()
+    }
+
+
+
+    fun isConnected() : Boolean {
         val global = applicationContext as Global
         val profileId = global.getProfileId();
-        Log.d("GLOBAL_VAR_HOME_TEST", profileId.toString())
-        global.setProfileId(true);
+
+        return profileId != ""
     }
 
     fun setBottomBarListener() {
-        //loadFragment(HomeFragment())
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav);
 
         bottomNav.setOnItemSelectedListener {
@@ -50,7 +53,6 @@ open class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.action_searchMovies -> {
-                    //loadFragment(SearchMoviesFragment())
                     if(this.localClassName != "SearchMovieActivity") {
                         val intent = Intent(this, SearchMovieActivity::class.java)
                         startActivity(intent)
@@ -58,18 +60,30 @@ open class HomeActivity : AppCompatActivity() {
                     true
                 }
                 R.id.action_favFilms -> {
-                    //loadFragment(ViewFavMoviesFragment())
                     if(this.localClassName != "ViewFavMoviesActivity") {
-                        val intent = Intent(this, ViewFavMoviesActivity::class.java)
-                        startActivity(intent)
+                        if(isConnected()) {
+                            val intent = Intent(this, ViewFavMoviesActivity::class.java)
+                            startActivity(intent)
+                        }
+                        else {
+                            val intent = Intent(this, ConnectProfileActivity::class.java)
+                            intent.putExtra("modeConnect", "log")
+                            startActivity(intent)
+                        }
                     }
                     true
                 }
                 R.id.action_profile -> {
-                    //loadFragment(ViewProfileFragment())
                     if(this.localClassName != "ViewProfileActivity") {
-                        val intent = Intent(this, ViewProfileActivity::class.java)
-                        startActivity(intent)
+                        if(isConnected()) {
+                            val intent = Intent(this, ViewProfileActivity::class.java)
+                            startActivity(intent)
+                        }
+                        else {
+                            val intent = Intent(this, ConnectProfileActivity::class.java)
+                            intent.putExtra("modeConnect", "log")
+                            startActivity(intent)
+                        }
                     }
                     true
                 }
@@ -99,12 +113,6 @@ open class HomeActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private  fun loadFragment(fragment: Fragment){
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.homeContainer,fragment)
-        transaction.commit()
     }
 
 
