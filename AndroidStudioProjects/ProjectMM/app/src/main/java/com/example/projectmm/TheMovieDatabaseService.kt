@@ -24,7 +24,7 @@ import retrofit2.http.Query
 
 interface TheMovieDatabaseService {
 
-    @GET("trending/all/day?api_key=4c5fc9d212f1199cb82213673620b351")
+    @GET("trending/movie/day?api_key=4c5fc9d212f1199cb82213673620b351")
     suspend fun getMovies(): GetMoviesResult
 
     @GET("movie/{movie_id}?api_key=4c5fc9d212f1199cb82213673620b351")
@@ -39,8 +39,6 @@ interface TheMovieDatabaseService {
     @GET("search/movie?api_key=4c5fc9d212f1199cb82213673620b351")
     suspend fun getSearchMovies(@Query("query") search: String): GetMoviesResult
 }
-
-data class GetImageMovie(val logo_path: Image)
 data class GetMoviesResult(val results: List<Movie>)
 
 

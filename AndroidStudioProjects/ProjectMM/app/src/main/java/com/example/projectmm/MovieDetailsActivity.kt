@@ -1,10 +1,14 @@
 package com.example.projectmm
 
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.RenderEffect
+import android.graphics.Shader
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,7 +17,8 @@ import kotlinx.coroutines.runBlocking
 
 class MovieDetailsActivity : HomeActivity() {
 
-    lateinit var recyclerView: RecyclerView
+    lateinit var recyclerViewRecommended: RecyclerView
+    lateinit var recyclerViewSimilar: RecyclerView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +39,13 @@ class MovieDetailsActivity : HomeActivity() {
         val genreTextView = findViewById<TextView>(R.id.details_movie_genre_textview)
         val detailsTextView = findViewById<TextView>(R.id.details_movie_details_textview)
 
-        this.recyclerView = findViewById<RecyclerView>(R.id.movie_list_item)
-        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        val imageBackdrop = findViewById<ImageView>(R.id.details_movie_back_drop_imageview)
+
+        this.recyclerViewRecommended = findViewById<RecyclerView>(R.id.recommended_movie_list_item)
+        recyclerViewRecommended.layoutManager = GridLayoutManager(this, 2)
+
+        this.recyclerViewSimilar = findViewById<RecyclerView>(R.id.similar_movie_list_item)
+        recyclerViewSimilar.layoutManager = GridLayoutManager(this, 2)
 
 
         runBlocking {
@@ -44,22 +54,30 @@ class MovieDetailsActivity : HomeActivity() {
             overviewTextview.text = movie?.overview
 
             runtimeTextView.text = movie?.runtime.toString() + " min"
-            genreTextView.text = movie?.genres.toString()
+            genreTextView.text = movie?.genres.toString().substring(1, movie?.genres.toString().length-1).replace(","," ")
+
             Glide.with(this@MovieDetailsActivity)
                 .load("https://image.tmdb.org/t/p/original/" + movie?.poster_path)
                 .into(findViewById(R.id.details_movie_poster_imageview))
             Glide.with(this@MovieDetailsActivity)
                 .load("https://image.tmdb.org/t/p/original/" + movie?.backdrop_path)
-                .into(findViewById(R.id.details_movie_back_drop_imageview))
+                .into(imageBackdrop)
+
+            imageBackdrop.setRenderEffect(RenderEffect.createBlurEffect(10F, 10F, Shader.TileMode.MIRROR))
+
 //            DownloadImageFromInternet(findViewById(R.id.details_movie_poster_imageview), applicationContext).execute("https://image.tmdb.org/t/p/original/" + movie?.poster_path)
 //            DownloadImageFromInternet(findViewById(R.id.details_movie_back_drop_imageview), applicationContext).execute("https://image.tmdb.org/t/p/original/" + movie?.backdrop_path)
 
             val recommended = movieID?.let {
                 moviesAPI.getRecommendedMovies(it)
-                Log.d("Test recommended",  moviesAPI.getRecommendedMovies(it).results.toString())
             }
-            if (recommended != null) {
-                recyclerView.adapter = MovieAdapter(moviesAPI.getRecommendedMovies(movieID).results.take(6), this@MovieDetailsActivity)
+            val similar = movieID?.let {
+                moviesAPI.getSimilarMovies(it)
+            }
+            if (recommended != null && similar != null) {
+                recyclerViewRecommended.adapter = MovieAdapter(moviesAPI.getRecommendedMovies(movieID).results.take(6), this@MovieDetailsActivity)
+                recyclerViewSimilar.adapter = MovieAdapter(moviesAPI.getSimilarMovies(movieID).results.take(6), this@MovieDetailsActivity)
+
             }
         }
     }
