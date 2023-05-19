@@ -33,6 +33,7 @@
                 android:layout_marginTop="200dp"
                 android:text="Durée"
                 android:fontFamily="@font/titan_one"
+                android:textColor="@color/white"
                 android:textSize="15sp"/>
 
             <TextView
@@ -43,6 +44,7 @@
                 android:layout_marginTop="130dp"
                 android:text="Genre"
                 android:fontFamily="@font/titan_one"
+                android:textColor="@color/white"
                 android:textSize="15sp"/>
 
             <TextView
@@ -53,6 +55,7 @@
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/titan_one"
                 android:text="Titre"
+                android:textColor="@color/white"
                 android:textSize="30sp" />
 
             <ImageView
@@ -71,6 +74,7 @@
                 android:layout_marginTop="240dp"
                 android:text="Type"
                 android:fontFamily="@font/titan_one"
+                android:textColor="@color/white"
                 android:textSize="15sp"/>
 
             <TextView
