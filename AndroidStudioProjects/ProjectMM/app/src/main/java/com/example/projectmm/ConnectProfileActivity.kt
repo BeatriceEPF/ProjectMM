@@ -55,7 +55,6 @@ class ConnectProfileActivity : AppCompatActivity() {
 
             if(modeExtra == "log") {
                 if (findAccount()) {
-                    global.setProfileId(enterId);
                     labelError.text = ""
 
                     val intent = Intent(this, ViewProfileActivity::class.java)
@@ -69,21 +68,19 @@ class ConnectProfileActivity : AppCompatActivity() {
                 else {
                     labelError.text = ""
                     addAccount()
-                    global.setProfileId(enterId);
 
                     val intent = Intent(this, ViewProfileActivity::class.java)
                     startActivity(intent)
                 }
             }
         }
-
         global.setProfilesJSON(loadInternalData());
         Log.d("JSON_LOADED_TEST", global.getProfilesJSON().toString())
-
     }
 
     private fun findAccount(): Boolean {
         val global = applicationContext as Global
+        //testJSONStorage()
 
         val labelError = findViewById<TextView>(R.id.label_error)
         val nbProfiles = global.getProfilesJSON().getString("nb_profile").toInt()
@@ -93,6 +90,10 @@ class ConnectProfileActivity : AppCompatActivity() {
 
             if ((profile.getString("profile_id") == enterId)
                 && (profile.getString("profile_passwd") == enterPasswd)) {
+
+                global.setProfileId(enterId);
+                global.setProfile(profile);
+
                 return true;
             }
 
@@ -116,18 +117,19 @@ class ConnectProfileActivity : AppCompatActivity() {
                 return true;
             }
         }
+
         return false;
     }
 
     private fun addAccount() {
         val global = applicationContext as Global
 
-        val nbProfiles = global.getProfilesJSON().getString("nb_profile").toInt()+1
+        val nbProfiles = global.getProfilesJSON().getString("nb_profile").toInt() + 1
 
         val rootObject = JSONObject();
         rootObject.put("nb_profile", nbProfiles.toString());
 
-        for(i in 0 until nbProfiles) {
+        for(i in 0 until nbProfiles-1) {
             val profile = JSONObject(global.getProfilesJSON().getString("profile$i"))
             rootObject.put("profile$i", profile)
         }
@@ -137,13 +139,14 @@ class ConnectProfileActivity : AppCompatActivity() {
 
         profileObject.put("profile_id", enterId);
         profileObject.put("profile_passwd", enterPasswd);
-        profileObject.put("movie", ArrayList<String>())
+        profileObject.put("movie", JSONArray(ArrayList<String>()))
 
-        rootObject.put("profile$nbProfiles", profileObject)
+        val temp = nbProfiles-1
+        rootObject.put("profile$temp", profileObject)
 
-        saveInternalData(rootObject)
-
-        Log.d("ADD_ACCOUNT_JSON_TEST", rootObject.toString())
+        global.setProfileId(enterId);
+        global.setProfile(profileObject);
+        global.setProfilesJSON(rootObject)
     }
 
 
@@ -151,8 +154,8 @@ class ConnectProfileActivity : AppCompatActivity() {
         // Create an ArrayList of profiles
         val profiles = ArrayList<Profile>()
 
-        val profile1 = Profile("Florian", "thedeep", arrayOf("507250", "21649", "9987"))
-        val profile2 = Profile("Beatrice", "butcher", arrayOf("173325", "173324", "144762"))
+        val profile1 = Profile("Florian", "thedeep", arrayOf(507250, 21649, 9987))
+        val profile2 = Profile("Beatrice", "butcher", arrayOf(173324, 144762))
 
         profiles.add(profile1)
         profiles.add(profile2)
@@ -161,8 +164,8 @@ class ConnectProfileActivity : AppCompatActivity() {
         // Convert the ArrayList to a JSON
         val profilesJsonSaved = createJSONFromProfiles(profiles)
 
-
-        saveInternalData(profilesJsonSaved)
+        val global = applicationContext as Global
+        global.setProfilesJSON(profilesJsonSaved)
 
         // Load the JSON from the internal Storage
         val profilesJsonLoaded = loadInternalData()
@@ -192,18 +195,6 @@ class ConnectProfileActivity : AppCompatActivity() {
         }
         return rootObject;
     }
-
-    private fun saveInternalData(profilesJson : JSONObject) {
-        val global = applicationContext as Global
-
-        global.setProfilesJSON(profilesJson)
-        val fileBody: String = profilesJson.toString()
-
-        openFileOutput(fileName, Context.MODE_PRIVATE).use { output ->
-            output?.write(fileBody.toByteArray())
-        }
-    }
-
 
     private fun loadInternalData(): JSONObject {
         openFileInput(fileName).use { stream ->

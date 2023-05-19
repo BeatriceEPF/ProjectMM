@@ -35,6 +35,7 @@ data class MovieDetail(
     override fun toString(): String {
         return "MovieDetail(adult=$adult, backdrop_path='$backdrop_path', budget=$budget, belongs_to_collection=$belongs_to_collection, genres=$genres, id=$id, homepage='$homepage', imdb_id='$imdb_id', name='$name', original_language='$original_language', original_title='$original_title', overview='$overview', popularity=$popularity, poster_path='$poster_path', production_companies=$production_companies, production_contries=$production_countries, release_date='$release_date', revenue=$revenue, runtime=$runtime, spoken_languages=$spoken_languages, status='$status', tagline='$tagline', title='$title', video=$video, vote_average=$vote_average, vote_count=$vote_count)"
     }
+
 }
 
 

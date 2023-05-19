@@ -39,10 +39,6 @@ class ListMoviesActivity : HomeActivity() {
             val test = moviesAPI.getMovies()
             recyclerView.adapter = MovieAdapter(test.results.take(5), this@ListMoviesActivity)
         }
-
-
-        val global = applicationContext as Global
-        Log.d("VERIFY_JSON_GLOBAL_TEST", global.getProfilesJSON().toString())
     }
 
     override fun onStart() {

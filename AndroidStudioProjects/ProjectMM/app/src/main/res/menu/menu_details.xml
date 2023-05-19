@@ -7,10 +7,4 @@
         android:icon="@drawable/baseline_favorite_border_24"
         android:title="@string/text_menuButton_FavFilms"
         app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/action_viewQRCode"
-        android:icon="@drawable/baseline_qr_code_24"
-        android:title="@string/text_menuButton_QRCode"
-        app:showAsAction="ifRoom" />
 </menu>
