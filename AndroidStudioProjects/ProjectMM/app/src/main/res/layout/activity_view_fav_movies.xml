@@ -6,11 +6,11 @@
     android:layout_height="match_parent"
     tools:context=".ViewFavMoviesActivity">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/movie_list_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Voir les films favoris" />
-
+        android:orientation="horizontal" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNav"

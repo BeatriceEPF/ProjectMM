@@ -21,20 +21,16 @@ class ConnectProfileActivity : AppCompatActivity() {
     lateinit var enterId : String;
     lateinit var enterPasswd : String;
 
-    lateinit var profilesJsonLoaded : JSONObject
-
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect_profile)
 
+        val global = applicationContext as Global
+
         // GET MODE OF CONNECTION
         val extras = intent.extras
         modeExtra = extras?.get("modeConnect") as String
-
-        profilesJsonLoaded = loadInternalData()
-
-        Log.d("LOADED_JSON", profilesJsonLoaded.toString())
 
         val labelError = findViewById<TextView>(R.id.label_error)
         val forgetButton = findViewById<Button>(R.id.button_without_log)
@@ -52,7 +48,6 @@ class ConnectProfileActivity : AppCompatActivity() {
                 modeExtra = "log"
             }
         }
-
         okButton.setOnClickListener {
 
             enterId = findViewById<TextView>(R.id.entry_id).text.toString()
@@ -60,10 +55,8 @@ class ConnectProfileActivity : AppCompatActivity() {
 
             if(modeExtra == "log") {
                 if (findAccount()) {
-                    Log.d("CONNEXION_TEST", "connexion succeeded")
-
-                    val global = applicationContext as Global
                     global.setProfileId(enterId);
+                    labelError.text = ""
 
                     val intent = Intent(this, ViewProfileActivity::class.java)
                     startActivity(intent)
@@ -74,11 +67,8 @@ class ConnectProfileActivity : AppCompatActivity() {
                     labelError.text = "COMPTE EXISTANT"
                 }
                 else {
-                    Log.d("CONNEXION_TEST", "inscription succeeded")
-
+                    labelError.text = ""
                     addAccount()
-
-                    val global = applicationContext as Global
                     global.setProfileId(enterId);
 
                     val intent = Intent(this, ViewProfileActivity::class.java)
@@ -86,19 +76,20 @@ class ConnectProfileActivity : AppCompatActivity() {
                 }
             }
         }
-    }
 
-    override fun onRestart() {
-        super.onRestart()
-        profilesJsonLoaded = loadInternalData()
+        global.setProfilesJSON(loadInternalData());
+        Log.d("JSON_LOADED_TEST", global.getProfilesJSON().toString())
+
     }
 
     private fun findAccount(): Boolean {
+        val global = applicationContext as Global
+
         val labelError = findViewById<TextView>(R.id.label_error)
-        val nbProfiles = profilesJsonLoaded.getString("nb_profile").toInt()
+        val nbProfiles = global.getProfilesJSON().getString("nb_profile").toInt()
 
         for(i in 0 until nbProfiles) {
-            val profile = JSONObject(profilesJsonLoaded.getString("profile$i"))
+            val profile = JSONObject(global.getProfilesJSON().getString("profile$i"))
 
             if ((profile.getString("profile_id") == enterId)
                 && (profile.getString("profile_passwd") == enterPasswd)) {
@@ -115,12 +106,12 @@ class ConnectProfileActivity : AppCompatActivity() {
         return false;
     }
 
-
     private fun isAccount(): Boolean {
-        val nbProfiles = profilesJsonLoaded.getString("nb_profile").toInt()
+        val global = applicationContext as Global
+        val nbProfiles = global.getProfilesJSON().getString("nb_profile").toInt()
 
         for(i in 0 until nbProfiles-1) {
-            val profile = JSONObject(profilesJsonLoaded.getString("profile$i"))
+            val profile = JSONObject(global.getProfilesJSON().getString("profile$i"))
             if (profile.getString("profile_id") == enterId) {
                 return true;
             }
@@ -129,13 +120,15 @@ class ConnectProfileActivity : AppCompatActivity() {
     }
 
     private fun addAccount() {
-        val nbProfiles = profilesJsonLoaded.getString("nb_profile").toInt()
+        val global = applicationContext as Global
+
+        val nbProfiles = global.getProfilesJSON().getString("nb_profile").toInt()+1
 
         val rootObject = JSONObject();
         rootObject.put("nb_profile", nbProfiles.toString());
 
         for(i in 0 until nbProfiles) {
-            val profile = JSONObject(profilesJsonLoaded.getString("profile$i"))
+            val profile = JSONObject(global.getProfilesJSON().getString("profile$i"))
             rootObject.put("profile$i", profile)
         }
 
@@ -148,9 +141,9 @@ class ConnectProfileActivity : AppCompatActivity() {
 
         rootObject.put("profile$nbProfiles", profileObject)
 
-        Log.d("ADD_ACCOUNT_TEST", rootObject.toString())
-
         saveInternalData(rootObject)
+
+        Log.d("ADD_ACCOUNT_JSON_TEST", rootObject.toString())
     }
 
 
@@ -158,8 +151,8 @@ class ConnectProfileActivity : AppCompatActivity() {
         // Create an ArrayList of profiles
         val profiles = ArrayList<Profile>()
 
-        val profile1 = Profile("Florian", "thedeep", arrayOf("4", "9", "7"))
-        val profile2 = Profile("Beatrice", "butcher", arrayOf("34", "1", "982"))
+        val profile1 = Profile("Florian", "thedeep", arrayOf("507250", "21649", "9987"))
+        val profile2 = Profile("Beatrice", "butcher", arrayOf("173325", "173324", "144762"))
 
         profiles.add(profile1)
         profiles.add(profile2)
@@ -180,7 +173,6 @@ class ConnectProfileActivity : AppCompatActivity() {
         val profile1Loaded = profilesJsonLoaded.getString("profile0")
         Log.d("JSON_PARSE_TEST", profile1Loaded)
     }
-
     private fun createJSONFromProfiles(profiles : ArrayList<Profile>): JSONObject {
         val rootObject = JSONObject();
         rootObject.put("nb_profile", profiles.size);
@@ -202,6 +194,9 @@ class ConnectProfileActivity : AppCompatActivity() {
     }
 
     private fun saveInternalData(profilesJson : JSONObject) {
+        val global = applicationContext as Global
+
+        global.setProfilesJSON(profilesJson)
         val fileBody: String = profilesJson.toString()
 
         openFileOutput(fileName, Context.MODE_PRIVATE).use { output ->
