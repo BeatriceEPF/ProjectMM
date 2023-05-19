@@ -1,11 +1,9 @@
 package com.example.projectmm
 
 import android.content.Intent
-import android.graphics.Color
 import android.graphics.RenderEffect
 import android.graphics.Shader
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
@@ -49,7 +47,7 @@ class MovieDetailsActivity : HomeActivity() {
 
 
         runBlocking {
-            val movie = movieID?.let { moviesAPI.getMovieById(it) }
+            val movie = movieID?.let { moviesAPI.getMovieDetailsById(it) }
             titleTextview.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
             overviewTextview.text = movie?.overview
 

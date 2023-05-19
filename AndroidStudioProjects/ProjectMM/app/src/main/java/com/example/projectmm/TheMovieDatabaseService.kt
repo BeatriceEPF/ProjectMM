@@ -6,7 +6,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.Image
 import android.os.AsyncTask
 import android.util.Log
 import android.widget.ImageView
@@ -28,7 +27,10 @@ interface TheMovieDatabaseService {
     suspend fun getMovies(): GetMoviesResult
 
     @GET("movie/{movie_id}?api_key=4c5fc9d212f1199cb82213673620b351")
-    suspend fun getMovieById(@Path("movie_id") id: Int): MovieDetail
+    suspend fun getMovieDetailsById(@Path("movie_id") id: Int): MovieDetail
+
+    @GET("movie/{movie_id}?api_key=4c5fc9d212f1199cb82213673620b351")
+    suspend fun getMoviesById(@Path("movie_id") id: Int): Movie
 
     @GET("movie/{movie_id}/similar?api_key=4c5fc9d212f1199cb82213673620b351")
     suspend fun getSimilarMovies(@Path("movie_id") id: Int): GetMoviesResult
