@@ -57,10 +57,22 @@ class MovieDetailsActivity : HomeActivity() {
             titleTextview.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
             overviewTextview.text = movie?.overview
 
-            typeTextView.text = movie?.vote_average.toString() + " /10"
+            detailsTextView.text =
+                movie?.toStringAdult() + "\n" +
+                movie?.tagline + "\n" +
+                "Release date : " + movie?.release_date + "\n" +
+                "Budget : " + movie?.budget.toString() + " $" + "\n" +
+                "Original language : " + movie?.original_language + "\n" +
+                "Original title : " + movie?.original_title + "\n" +
+                "Production companies : "  + movie?.production_companies.toString().substring(1, movie?.production_companies.toString().length - 1).replace(",", "") + "\n" +
+                "Spoken languages : "  + movie?.spoken_languages.toString().substring(1, movie?.spoken_languages.toString().length - 1)
+
+            typeTextView.text = movie?.vote_average.toString() + " /10" + "\n(" + movie?.vote_count + ")\n"
 
             runtimeTextView.text = movie?.runtime.toString() + " min"
-            genreTextView.text = movie?.genres.toString().substring(1, movie?.genres.toString().length-1).replace(","," ")
+            genreTextView.text =
+                movie?.genres.toString().substring(1, movie?.genres.toString().length - 1)
+                    .replace(",", " ")
 
             Glide.with(this@MovieDetailsActivity)
                 .load("https://image.tmdb.org/t/p/original/" + movie?.poster_path)
@@ -69,7 +81,13 @@ class MovieDetailsActivity : HomeActivity() {
                 .load("https://image.tmdb.org/t/p/original/" + movie?.backdrop_path)
                 .into(imageBackdrop)
 
-            imageBackdrop.setRenderEffect(RenderEffect.createBlurEffect(10F, 10F, Shader.TileMode.MIRROR))
+            imageBackdrop.setRenderEffect(
+                RenderEffect.createBlurEffect(
+                    10F,
+                    10F,
+                    Shader.TileMode.MIRROR
+                )
+            )
 
 //            DownloadImageFromInternet(findViewById(R.id.details_movie_poster_imageview), applicationContext).execute("https://image.tmdb.org/t/p/original/" + movie?.poster_path)
 //            DownloadImageFromInternet(findViewById(R.id.details_movie_back_drop_imageview), applicationContext).execute("https://image.tmdb.org/t/p/original/" + movie?.backdrop_path)
@@ -81,47 +99,54 @@ class MovieDetailsActivity : HomeActivity() {
                 moviesAPI.getSimilarMovies(it)
             }
             if (recommended != null && similar != null) {
-                recyclerViewRecommended.adapter = MovieAdapter(moviesAPI.getRecommendedMovies(movieID).results.take(6), this@MovieDetailsActivity)
-                recyclerViewSimilar.adapter = MovieAdapter(moviesAPI.getSimilarMovies(movieID).results.take(6), this@MovieDetailsActivity)
+                recyclerViewRecommended.adapter = MovieAdapter(
+                    moviesAPI.getRecommendedMovies(movieID).results.take(6),
+                    this@MovieDetailsActivity
+                )
+                recyclerViewSimilar.adapter = MovieAdapter(
+                    moviesAPI.getSimilarMovies(movieID).results.take(6),
+                    this@MovieDetailsActivity
+                )
 
             }
         }
 
-        if(super.isConnected()) this.isFav = isFavMovie()
+        if (super.isConnected()) this.isFav = isFavMovie()
     }
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.menu_details,menu)
+        menuInflater.inflate(R.menu.menu_details, menu)
         this.isFav = isFavMovie()
 
         if (this.isFav) {
-            menu?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.baseline_favorite_24)
+            menu?.getItem(0)?.icon =
+                ContextCompat.getDrawable(this, R.drawable.baseline_favorite_24)
         }
         return super.onCreateOptionsMenu(menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
+        when (item.itemId) {
             R.id.action_addToFav -> {
-                if(super.isConnected()) {
+                if (super.isConnected()) {
                     if (!this.isFav) {
                         this.isFav = true;
                         item.icon = ContextCompat.getDrawable(this, R.drawable.baseline_favorite_24)
                         this.addFavMovieToJSON()
-                    }
-                    else {
+                    } else {
                         this.isFav = false;
-                        item.icon = ContextCompat.getDrawable(this, R.drawable.baseline_favorite_border_24)
+                        item.icon =
+                            ContextCompat.getDrawable(this, R.drawable.baseline_favorite_border_24)
                         removeFavMovieFromJSON()
                     }
-                }
-                else {
+                } else {
                     val intent = Intent(this, ConnectProfileActivity::class.java)
                     intent.putExtra("modeConnect", "log")
                     startActivity(intent)
                 }
             }
+
             R.id.action_returnHome -> {
                 val intent = Intent(this, HomeActivity::class.java)
                 startActivity(intent)
@@ -135,18 +160,20 @@ class MovieDetailsActivity : HomeActivity() {
         val global = applicationContext as Global
         val nbProfiles = global.getProfilesJSON().getString("nb_profile").toInt()
 
-        for(i in 0 until nbProfiles) {
+        for (i in 0 until nbProfiles) {
             val profile = JSONObject(global.getProfilesJSON().getString("profile$i"))
 
             if (profile.getString("profile_id") == global.getProfileId()) {
                 val favMoviesString = profile.getString("movie")
 
-                if(favMoviesString != "[]") {
-                    val moviesIdStr= favMoviesString.substring(1, favMoviesString.length-1).split(",").map { it.trim() }
+                if (favMoviesString != "[]") {
+                    val moviesIdStr =
+                        favMoviesString.substring(1, favMoviesString.length - 1).split(",")
+                            .map { it.trim() }
                     val moviesId = moviesIdStr.map { it.toInt() }.toMutableList()
 
                     for (movieInt in moviesId) {
-                        if(movieInt == movieID) return true
+                        if (movieInt == movieID) return true
                     }
                 }
             }
@@ -156,39 +183,40 @@ class MovieDetailsActivity : HomeActivity() {
 
     private fun removeFavMovieFromJSON() {
 
-            val global = applicationContext as Global
-            val profileObject = JSONObject()
-            val nbProfiles = global.getProfilesJSON().getString("nb_profile").toInt()
+        val global = applicationContext as Global
+        val profileObject = JSONObject()
+        val nbProfiles = global.getProfilesJSON().getString("nb_profile").toInt()
 
-            val rootObject = JSONObject();
-            rootObject.put("nb_profile", nbProfiles.toString());
+        val rootObject = JSONObject();
+        rootObject.put("nb_profile", nbProfiles.toString());
 
-            for(i in 0 until nbProfiles) {
-                val profile = JSONObject(global.getProfilesJSON().getString("profile$i"))
+        for (i in 0 until nbProfiles) {
+            val profile = JSONObject(global.getProfilesJSON().getString("profile$i"))
 
-                if (profile.getString("profile_id") == global.getProfileId()) {
-                    profileObject.put("profile_id", profile.getString("profile_id"));
-                    profileObject.put("profile_passwd", profile.getString("profile_passwd"));
+            if (profile.getString("profile_id") == global.getProfileId()) {
+                profileObject.put("profile_id", profile.getString("profile_id"));
+                profileObject.put("profile_passwd", profile.getString("profile_passwd"));
 
-                    val favMoviesString = profile.getString("movie")
+                val favMoviesString = profile.getString("movie")
 
-                    val moviesIdStr= favMoviesString.substring(1, favMoviesString.length-1).split(",").map { it.trim() }
-                    val moviesId = moviesIdStr.map { it.toInt() }.toMutableList()
+                val moviesIdStr =
+                    favMoviesString.substring(1, favMoviesString.length - 1).split(",")
+                        .map { it.trim() }
+                val moviesId = moviesIdStr.map { it.toInt() }.toMutableList()
 
-                    val newMovies = ArrayList<String>()
-                    for(movieInt in moviesId) {
-                        if(movieInt != movieID) newMovies.add(movieInt.toString())
-                    }
-                    profileObject.put("movie", newMovies)
-                    rootObject.put("profile$i", profileObject)
+                val newMovies = ArrayList<String>()
+                for (movieInt in moviesId) {
+                    if (movieInt != movieID) newMovies.add(movieInt.toString())
                 }
-                else {
-                    rootObject.put("profile$i", profile)
-                }
+                profileObject.put("movie", newMovies)
+                rootObject.put("profile$i", profileObject)
+            } else {
+                rootObject.put("profile$i", profile)
             }
-            global.setProfile(profileObject)
-            global.setProfilesJSON(rootObject)
         }
+        global.setProfile(profileObject)
+        global.setProfilesJSON(rootObject)
+    }
 
     private fun addFavMovieToJSON() {
 
@@ -199,7 +227,7 @@ class MovieDetailsActivity : HomeActivity() {
         val rootObject = JSONObject();
         rootObject.put("nb_profile", nbProfiles.toString());
 
-        for(i in 0 until nbProfiles) {
+        for (i in 0 until nbProfiles) {
             val profile = JSONObject(global.getProfilesJSON().getString("profile$i"))
 
             if (profile.getString("profile_id") == global.getProfileId()) {
@@ -208,21 +236,21 @@ class MovieDetailsActivity : HomeActivity() {
 
                 val favMoviesString = profile.getString("movie")
 
-                if(favMoviesString != "[]") {
-                    val moviesIdStr= favMoviesString.substring(1, favMoviesString.length-1).split(",").map { it.trim() }
+                if (favMoviesString != "[]") {
+                    val moviesIdStr =
+                        favMoviesString.substring(1, favMoviesString.length - 1).split(",")
+                            .map { it.trim() }
                     val moviesId = moviesIdStr.toMutableList()
 
                     moviesId.add(movieID.toString())
                     profileObject.put("movie", moviesId)
-                }
-                else {
+                } else {
                     val arrayMovie = ArrayList<Int>()
                     arrayMovie.add(movieID)
                     profileObject.put("movie", arrayMovie)
                 }
                 rootObject.put("profile$i", profileObject)
-            }
-            else {
+            } else {
                 rootObject.put("profile$i", profile)
             }
         }
