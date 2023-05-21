@@ -27,6 +27,7 @@ class ConnectProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_connect_profile)
 
         val global = applicationContext as Global
+        testJSONStorage()
 
         // GET MODE OF CONNECTION
         val extras = intent.extras

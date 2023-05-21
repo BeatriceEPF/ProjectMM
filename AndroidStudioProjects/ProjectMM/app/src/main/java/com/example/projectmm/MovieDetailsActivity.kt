@@ -57,6 +57,8 @@ class MovieDetailsActivity : HomeActivity() {
             titleTextview.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
             overviewTextview.text = movie?.overview
 
+            typeTextView.text = movie?.vote_average.toString() + " /10"
+
             runtimeTextView.text = movie?.runtime.toString() + " min"
             genreTextView.text = movie?.genres.toString().substring(1, movie?.genres.toString().length-1).replace(","," ")
 

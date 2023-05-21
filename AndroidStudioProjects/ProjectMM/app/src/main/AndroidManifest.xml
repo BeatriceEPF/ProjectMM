@@ -25,6 +25,7 @@
             android:exported="false"
             android:parentActivityName=".HomeActivity" />
         <activity
+            android:parentActivityName=".HomeActivity"
             android:name=".ConnectProfileActivity"
             android:exported="false" />
         <activity
