@@ -118,10 +118,11 @@ class MovieDetailsActivity : HomeActivity() {
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_details, menu)
         this.isFav = isFavMovie()
-
-        if (this.isFav) {
-            menu?.getItem(0)?.icon =
-                ContextCompat.getDrawable(this, R.drawable.baseline_favorite_24)
+        
+        if(super.isConnected()) {
+            if (this.isFav) {
+                menu?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.baseline_favorite_24)
+            }
         }
         return super.onCreateOptionsMenu(menu)
     }
