@@ -11,12 +11,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.projectmm.model.Profile
 import org.json.JSONArray
 import org.json.JSONObject
+import java.io.File
+import java.io.FileNotFoundException
 
 class ConnectProfileActivity : AppCompatActivity() {
     @SuppressLint("MissingInflatedId", "SetTextI18n")
 
     lateinit var modeExtra : String;
-    private val fileName = "ProfileSettings_ProjectMM.text"
+    private val fileName = "ProfilesDetails.text"
 
     lateinit var enterId : String;
     lateinit var enterPasswd : String;
@@ -27,7 +29,6 @@ class ConnectProfileActivity : AppCompatActivity() {
         setContentView(R.layout.activity_connect_profile)
 
         val global = applicationContext as Global
-        testJSONStorage()
 
         // GET MODE OF CONNECTION
         val extras = intent.extras
@@ -76,7 +77,7 @@ class ConnectProfileActivity : AppCompatActivity() {
             }
         }
         global.setProfilesJSON(loadInternalData());
-        Log.d("JSON_LOADED_TEST", global.getProfilesJSON().toString())
+        Log.d("JSON_INIT", global.getProfilesJSON().toString())
     }
 
     private fun findAccount(): Boolean {
@@ -86,8 +87,19 @@ class ConnectProfileActivity : AppCompatActivity() {
         val labelError = findViewById<TextView>(R.id.label_error)
         val nbProfiles = global.getProfilesJSON().getString("nb_profile").toInt()
 
+        Log.d("Pourquoi", nbProfiles.toString())
+
+        Log.d("enterId", enterId)
+        Log.d("enterPasswd", enterPasswd)
+
+        if(nbProfiles == 0) labelError.text = "COMPTE INTROUVABLE"
+
         for(i in 0 until nbProfiles) {
             val profile = JSONObject(global.getProfilesJSON().getString("profile$i"))
+
+            Log.d("Pourquoi", "ici")
+            Log.d("profile_id", profile.getString("profile_id"))
+            Log.d("profile_passwd", profile.getString("profile_passwd"))
 
             if ((profile.getString("profile_id") == enterId)
                 && (profile.getString("profile_passwd") == enterPasswd)) {
@@ -97,11 +109,11 @@ class ConnectProfileActivity : AppCompatActivity() {
 
                 return true;
             }
-
             else if (profile.getString("profile_id") != enterId) {
                 labelError.text = "COMPTE INTROUVABLE"
             }
-            else if (profile.getString("profile_passwd") == enterPasswd) {
+            else if (profile.getString("profile_id") == enterId &&
+                 profile.getString("profile_passwd") != enterPasswd) {
                 labelError.text = "MOT DE PASSE INVALIDE"
             }
         }
@@ -150,60 +162,20 @@ class ConnectProfileActivity : AppCompatActivity() {
         global.setProfilesJSON(rootObject)
     }
 
-
-    private fun testJSONStorage() {
-        // Create an ArrayList of profiles
-        val profiles = ArrayList<Profile>()
-
-        val profile1 = Profile("Florian", "thedeep", arrayOf(507250, 21649, 9987))
-        val profile2 = Profile("Beatrice", "butcher", arrayOf(173324, 144762))
-
-        profiles.add(profile1)
-        profiles.add(profile2)
-
-
-        // Convert the ArrayList to a JSON
-        val profilesJsonSaved = createJSONFromProfiles(profiles)
-
-        val global = applicationContext as Global
-        global.setProfilesJSON(profilesJsonSaved)
-
-        // Load the JSON from the internal Storage
-        val profilesJsonLoaded = loadInternalData()
-
-        // Read from the Loaded JSON, tests
-        Log.d("JSON_LOADED_TEST", profilesJsonLoaded.toString())
-
-        val profile1Loaded = profilesJsonLoaded.getString("profile0")
-        Log.d("JSON_PARSE_TEST", profile1Loaded)
-    }
-    private fun createJSONFromProfiles(profiles : ArrayList<Profile>): JSONObject {
-        val rootObject = JSONObject();
-        rootObject.put("nb_profile", profiles.size);
-
-        for ((cpt, profile) in profiles.withIndex())
-        {
-            val profileObject = JSONObject()
-
-            profileObject.put("profile_id", profile.id);
-            profileObject.put("profile_passwd", profile.passwd);
-
-            profileObject.put("movie", JSONArray(profile.favMoviesList))
-            // REPLACE ABOVE BY :
-            // for (favMovie in profile.favMoviesList) profileObject.put("movie", favMovie.id)
-
-            rootObject.put("profile$cpt", profileObject)
-        }
-        return rootObject;
-    }
-
     private fun loadInternalData(): JSONObject {
-        openFileInput(fileName).use { stream ->
-            val text = stream?.bufferedReader().use {
-                it?.readText()
+
+        try {
+            openFileInput(fileName).use { stream ->
+                val text = stream?.bufferedReader().use {
+                    it?.readText()
+                }
+                return JSONObject(text.toString())
             }
-            return JSONObject(text.toString())
+        } catch (e: FileNotFoundException) {
+            val rootObject = JSONObject();
+            rootObject.put("nb_profile", 0);
+
+            return rootObject
         }
     }
-
 }

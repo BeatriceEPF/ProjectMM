@@ -5,7 +5,7 @@ import android.content.Context
 import org.json.JSONObject
 
 class Global : Application() {
-    private val fileName = "ProfileSettings_ProjectMM.text"
+    private val fileName = "ProfilesDetails.text"
 
     private var profileId = ""
     private var profile = JSONObject()
