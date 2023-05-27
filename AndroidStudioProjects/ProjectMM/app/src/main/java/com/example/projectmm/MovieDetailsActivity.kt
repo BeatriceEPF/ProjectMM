@@ -13,9 +13,11 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.projectmm.model.MovieDetail
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
+import kotlin.math.roundToInt
 
 class MovieDetailsActivity : HomeActivity() {
 
@@ -58,6 +60,8 @@ class MovieDetailsActivity : HomeActivity() {
             val movie = movieID?.let { moviesAPI.getMovieDetailsById(it) }
             titleTextview.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
             overviewTextview.text = movie?.overview
+
+            setNoteStars(movie)
 
             detailsTextView.text =
                 movie?.toStringAdult() + "\n" +
@@ -114,6 +118,29 @@ class MovieDetailsActivity : HomeActivity() {
         }
 
         if (super.isConnected()) this.isFav = isFavMovie()
+    }
+
+    @SuppressLint("SetTextI18n")
+    private fun setNoteStars(movie: MovieDetail?) {
+        val starIcons = ArrayList<ImageView>()
+        starIcons.add(findViewById(R.id.star_icon1))
+        starIcons.add(findViewById(R.id.star_icon2))
+        starIcons.add(findViewById(R.id.star_icon3))
+        starIcons.add(findViewById(R.id.star_icon4))
+        starIcons.add(findViewById(R.id.star_icon5))
+
+        val noteI = (movie?.vote_average!!.roundToInt().toDouble()/2).roundToInt()
+        val noteF = movie.vote_average.roundToInt().toDouble()/2
+
+        for((cpt, star) in starIcons.withIndex()) {
+            if((cpt+1) <= noteI) {
+                if(noteF-cpt == 0.5) star.setImageResource(R.drawable.baseline_star_half_24)
+                else star.setImageResource(R.drawable.baseline_star_24)
+            }
+        }
+
+        val starTextView = findViewById<TextView>(R.id.text_note_count)
+        starTextView.text = " (" + movie.vote_count + " votes)"
     }
 
 

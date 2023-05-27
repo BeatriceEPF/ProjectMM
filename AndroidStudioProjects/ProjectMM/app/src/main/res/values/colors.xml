@@ -11,6 +11,7 @@
     <color name="menu_items">#ff6666</color>
     <color name="menu_text">#ff1a1a</color>
     <color name="home_item">#FFFFFF</color>
+    <color name="fav_icon">#FFC107</color>
 
     <color name="account_round">#A61B1B</color>
     <color name="account_round_lighter">#DF2727</color>
