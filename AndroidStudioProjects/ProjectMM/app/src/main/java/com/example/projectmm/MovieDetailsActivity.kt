@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 
@@ -29,6 +30,7 @@ class MovieDetailsActivity : HomeActivity() {
         setContentView(R.layout.activity_movie_details)
 
         super.setBottomBarListener()
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
 
         val extras = intent.extras
 
@@ -117,9 +119,10 @@ class MovieDetailsActivity : HomeActivity() {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_details, menu)
-        this.isFav = isFavMovie()
         
         if(super.isConnected()) {
+            this.isFav = isFavMovie()
+
             if (this.isFav) {
                 menu?.getItem(0)?.icon = ContextCompat.getDrawable(this, R.drawable.baseline_favorite_24)
             }

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.runBlocking
 
 
@@ -28,6 +29,8 @@ class ListMoviesActivity : HomeActivity() {
         setContentView(R.layout.activity_list_movies)
 
         super.setBottomBarListener()
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottomNav.selectedItemId = R.id.action_listMovies
 
         this.recyclerView = findViewById<RecyclerView>(R.id.movie_list_item)
         recyclerView.layoutManager = GridLayoutManager(this, 1)

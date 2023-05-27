@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.widget.EditText
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.runBlocking
 
 class SearchMovieActivity : HomeActivity() {
@@ -18,6 +19,8 @@ class SearchMovieActivity : HomeActivity() {
         setContentView(R.layout.activity_search_movie)
 
         super.setBottomBarListener()
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottomNav.selectedItemId = R.id.action_searchMovies
 
         this.recyclerView = findViewById<RecyclerView>(R.id.movie_list_item)
         recyclerView.layoutManager = GridLayoutManager(this, 1)

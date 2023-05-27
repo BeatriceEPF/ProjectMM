@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class ViewProfileActivity : HomeActivity() {
     @SuppressLint("SetTextI18n")
@@ -14,6 +15,8 @@ class ViewProfileActivity : HomeActivity() {
         setContentView(R.layout.activity_view_profile)
 
         super.setBottomBarListener()
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottomNav.selectedItemId = R.id.action_profile
 
         val global = applicationContext as Global
 

@@ -31,4 +31,5 @@
         android:icon="@drawable/baseline_account_circle_24"
         android:title="@string/text_menuButton_Profile"
         app:showAsAction="ifRoom" />
+
 </menu>

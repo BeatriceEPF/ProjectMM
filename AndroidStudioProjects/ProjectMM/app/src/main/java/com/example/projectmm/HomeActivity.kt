@@ -40,8 +40,17 @@ open class HomeActivity : AppCompatActivity() {
         return profileId != ""
     }
 
+    private fun BottomNavigationView.uncheckAllItems() {
+        menu.setGroupCheckable(0, true, false)
+        for (i in 0 until menu.size()) {
+            menu.getItem(i).isChecked = false
+        }
+        menu.setGroupCheckable(0, true, true)
+    }
+
     fun setBottomBarListener() {
-        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav);
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottomNav.uncheckAllItems()
 
         bottomNav.setOnItemSelectedListener {
             when (it.itemId) {
@@ -68,6 +77,7 @@ open class HomeActivity : AppCompatActivity() {
                         else {
                             val intent = Intent(this, ConnectProfileActivity::class.java)
                             intent.putExtra("modeConnect", "log")
+
                             startActivity(intent)
                         }
                     }

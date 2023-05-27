@@ -7,126 +7,138 @@
     android:layout_height="match_parent"
     tools:context=".ConnectProfileActivity">
 
-
-
     <ImageView
         android:id="@+id/background_profile"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="match_parent"
         android:scaleType="fitXY"
         app:srcCompat="@drawable/background_profile"/>
 
-    <ImageView
-        android:id="@+id/round_account"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="40dp"
-        app:srcCompat="@drawable/baseline_account_circle_24"/>
+        android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:id="@+id/layout_log"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_below="@id/round_account"
-        android:background="@drawable/rounded_box">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
+            <ImageView
+                android:id="@+id/round_account"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                app:srcCompat="@drawable/baseline_account_circle_24"/>
 
-        <TextView
-            android:id="@+id/label_id"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold|italic"
-
-            android:text="@string/enter_profile_Id_textview" />
-        <EditText
-            android:id="@+id/entry_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:layout_marginHorizontal="50dp"
-            android:singleLine="true"
-            android:background="@android:drawable/editbox_background"
-            android:layout_below="@id/label_id"/>
-
-        <TextView
-            android:id="@+id/label_passwd"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:textStyle="bold|italic"
-
-            android:text="@string/enter_profile_Passwd_textview"
-            android:layout_below="@id/entry_id"/>
-        <EditText
-            android:id="@+id/entry_passwd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:layout_marginHorizontal="50dp"
-            android:singleLine="true"
-            android:inputType="textPassword"
-            android:background="@android:drawable/editbox_background"
-            android:layout_below="@id/label_passwd"/>
-
-        <TextView
-            android:id="@+id/label_error"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:gravity="center"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:textStyle="italic"
-            android:text=""
-
-            android:layout_below="@id/entry_passwd"/>
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/layout_log"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/round_account"
+                android:background="#51FFD6D6">
 
 
+                <TextView
+                    android:id="@+id/label_id"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-    <Button
-        android:id="@+id/button_ok"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold|italic"
 
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="30dp"
+                    android:text="@string/enter_profile_Id_textview" />
+                <EditText
+                    android:id="@+id/entry_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_marginHorizontal="50dp"
+                    android:singleLine="true"
+                    android:contentDescription="Tapez votre identifiant"
+                    android:layout_below="@id/label_id"/>
 
-        android:text="Se connecter"
-        android:textSize="16sp"
-        android:textStyle="bold"
+                <TextView
+                    android:id="@+id/label_passwd"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-        android:layout_below="@id/layout_log"
-        android:background="@drawable/rounded_box"/>
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="25sp"
+                    android:textStyle="bold|italic"
 
-    <Button
-        android:id="@+id/button_without_log"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+                    android:text="@string/enter_profile_Passwd_textview"
+                    android:layout_below="@id/entry_id"/>
+                <EditText
+                    android:id="@+id/entry_passwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="20sp"
+                    android:layout_marginHorizontal="50dp"
+                    android:singleLine="true"
+                    android:inputType="textPassword"
+                    android:contentDescription="Tapez votre mot de passe"
+                    android:layout_below="@id/label_passwd"/>
 
-        android:layout_marginTop="5dp"
-        android:layout_marginHorizontal="30dp"
+                <TextView
+                    android:id="@+id/label_error"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
 
-        android:text="Je n'ai pas de compte ?"
-        android:textSize="16sp"
-        android:textStyle="bold"
+                    android:gravity="center"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    android:text=""
 
-        android:layout_below="@id/button_ok"
-        android:background="@drawable/rounded_box"/>
+                    android:layout_below="@id/entry_passwd"/>
+            </RelativeLayout>
+
+
+
+            <Button
+                android:id="@+id/button_ok"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="30dp"
+                android:layout_marginHorizontal="30dp"
+
+                android:text="Se connecter"
+                android:textSize="16sp"
+                android:textStyle="bold"
+
+                android:layout_below="@id/layout_log"
+                android:background="@drawable/rounded_box"/>
+
+            <Button
+                android:id="@+id/button_without_log"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginHorizontal="30dp"
+
+                android:text="Je n'ai pas de compte ?"
+                android:textSize="16sp"
+                android:textStyle="bold"
+
+                android:layout_below="@id/button_ok"
+                android:background="@drawable/rounded_box"/>
+
+        </RelativeLayout>
+    </ScrollView>
+
+
 
 
 

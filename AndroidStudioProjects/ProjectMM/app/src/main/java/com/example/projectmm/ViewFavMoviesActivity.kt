@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.projectmm.model.Movie
 import com.example.projectmm.model.MovieDetail
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.runBlocking
 import org.json.JSONObject
 
@@ -21,6 +22,8 @@ class ViewFavMoviesActivity : HomeActivity() {
         setContentView(R.layout.activity_view_fav_movies)
 
         super.setBottomBarListener()
+        val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
+        bottomNav.selectedItemId = R.id.action_favFilms
 
         this.recyclerView = findViewById<RecyclerView>(R.id.movie_list_item)
         recyclerView.layoutManager = GridLayoutManager(this, 1)
