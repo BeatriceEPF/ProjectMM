@@ -65,7 +65,6 @@ class MovieDetailsActivity : HomeActivity() {
 
             detailsTextView.text =
                 movie?.toStringAdult() + "\n" +
-                movie?.tagline + "\n" +
                 "Release date : " + movie?.release_date + "\n" +
                 "Budget : " + movie?.budget.toString() + " $" + "\n" +
                 "Original language : " + movie?.original_language + "\n" +
@@ -73,7 +72,7 @@ class MovieDetailsActivity : HomeActivity() {
                 "Production companies : "  + movie?.production_companies.toString().substring(1, movie?.production_companies.toString().length - 1).replace(",", "") + "\n" +
                 "Spoken languages : "  + movie?.spoken_languages.toString().substring(1, movie?.spoken_languages.toString().length - 1)
 
-            typeTextView.text = movie?.vote_average.toString() + " /10" + "\n(" + movie?.vote_count + ")\n"
+            typeTextView.text = movie?.tagline + "\n"
 
             runtimeTextView.text = movie?.runtime.toString() + " min"
             genreTextView.text =
