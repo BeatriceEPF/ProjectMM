@@ -18,6 +18,7 @@ class ViewFavMoviesActivity : HomeActivity() {
     lateinit var recyclerView: RecyclerView
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTitle("You liked")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_fav_movies)
 

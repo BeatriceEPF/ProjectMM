@@ -60,6 +60,7 @@ class MovieDetailsActivity : HomeActivity() {
         runBlocking {
             val movie = movieID?.let { moviesAPI.getMovieDetailsById(it) }
             titleTextview.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
+            setTitle(movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API")
             overviewTextview.text = movie?.overview
 
             setNoteStars(movie)

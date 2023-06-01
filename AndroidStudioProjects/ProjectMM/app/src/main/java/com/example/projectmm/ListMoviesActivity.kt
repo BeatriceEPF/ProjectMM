@@ -25,6 +25,7 @@ class ListMoviesActivity : HomeActivity() {
     lateinit var swipeRefreshLayout: SwipeRefreshLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTitle("Trending movies")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list_movies)
 
