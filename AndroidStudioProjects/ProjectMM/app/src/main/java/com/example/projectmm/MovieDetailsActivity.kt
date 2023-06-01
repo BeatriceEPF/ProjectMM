@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.projectmm.model.MovieDetail
@@ -51,10 +52,10 @@ class MovieDetailsActivity : HomeActivity() {
         val imageBackdrop = findViewById<ImageView>(R.id.details_movie_back_drop_imageview)
 
         this.recyclerViewRecommended = findViewById<RecyclerView>(R.id.recommended_movie_list_item)
-        recyclerViewRecommended.layoutManager = GridLayoutManager(this, 2)
+        recyclerViewRecommended.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         this.recyclerViewSimilar = findViewById<RecyclerView>(R.id.similar_movie_list_item)
-        recyclerViewSimilar.layoutManager = GridLayoutManager(this, 2)
+        recyclerViewSimilar.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         runBlocking {
             val movie = movieID?.let { moviesAPI.getMovieDetailsById(it) }
@@ -106,11 +107,13 @@ class MovieDetailsActivity : HomeActivity() {
             if (recommended != null && similar != null) {
                 recyclerViewRecommended.adapter = MovieAdapter(
                     moviesAPI.getRecommendedMovies(movieID).results.take(6),
-                    this@MovieDetailsActivity
+                    this@MovieDetailsActivity,
+                    R.layout.movie_detail_list_item
                 )
                 recyclerViewSimilar.adapter = MovieAdapter(
                     moviesAPI.getSimilarMovies(movieID).results.take(6),
-                    this@MovieDetailsActivity
+                    this@MovieDetailsActivity,
+                    R.layout.movie_detail_list_item
                 )
 
             }

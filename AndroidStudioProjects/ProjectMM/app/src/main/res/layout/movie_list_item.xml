@@ -18,7 +18,7 @@
             tools:text="@tools:sample/full_names"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="8dp"
-            android:id="@+id/movie_view_textview"
+            android:id="@+id/movie_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>

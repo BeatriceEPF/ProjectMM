@@ -38,9 +38,9 @@ class ListMoviesActivity : HomeActivity() {
         val moviesAPI = RetrofitHelper.getInstance("https://api.themoviedb.org/3/")
             .create(TheMovieDatabaseService::class.java)
         runBlocking {
-            Toast.makeText(applicationContext, "Scroll down to get more !", Toast.LENGTH_SHORT).show()
+            Toast.makeText(applicationContext, "Scroll up to get more !", Toast.LENGTH_SHORT).show()
             val test = moviesAPI.getMovies()
-            recyclerView.adapter = MovieAdapter(test.results.take(5), this@ListMoviesActivity)
+            recyclerView.adapter = MovieAdapter(test.results.take(5), this@ListMoviesActivity, R.layout.movie_list_item)
         }
     }
 
@@ -54,7 +54,7 @@ class ListMoviesActivity : HomeActivity() {
         swipeRefreshLayout.setOnRefreshListener {
             runBlocking {
                 val test = moviesAPI.getMovies()
-                recyclerView.adapter = MovieAdapter(test.results.take(20), this@ListMoviesActivity)
+                recyclerView.adapter = MovieAdapter(test.results.take(20), this@ListMoviesActivity, R.layout.movie_list_item)
             }
             swipeRefreshLayout.isRefreshing = false
         }

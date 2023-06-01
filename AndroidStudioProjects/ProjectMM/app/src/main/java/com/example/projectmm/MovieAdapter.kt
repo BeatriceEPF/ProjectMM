@@ -15,11 +15,11 @@ import com.example.projectmm.model.Movie
 class ClientViewHolder(val view: View) : ViewHolder(view)
 
 
-class MovieAdapter(val movies: List<Movie>, val context: Context) : RecyclerView.Adapter<ClientViewHolder>() {
+class MovieAdapter(val movies: List<Movie>, val context: Context, val layout: Int) : RecyclerView.Adapter<ClientViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ClientViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        val view = layoutInflater.inflate(R.layout.movie_list_item, parent, false)
+        val view = layoutInflater.inflate(layout, parent, false)
         return ClientViewHolder(view)
     }
 
@@ -30,7 +30,7 @@ class MovieAdapter(val movies: List<Movie>, val context: Context) : RecyclerView
 
         val view = holder.itemView
 
-        val textView = view.findViewById<TextView>(R.id.movie_view_textview)
+        val textView = view.findViewById<TextView>(R.id.movie_title)
         textView.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
 
         //DownloadImageFromInternet(view.findViewById(R.id.movie_view_imageview), context).execute("https://image.tmdb.org/t/p/original/" + movie.poster_path)
@@ -42,8 +42,7 @@ class MovieAdapter(val movies: List<Movie>, val context: Context) : RecyclerView
 
         //imageView.setImageResource(movie.getImage())
 
-        val cardView = view.findViewById<CardView>(R.id.movie_list_item)
-        cardView.setOnClickListener {
+        view.setOnClickListener {
             val test = movie.id
             val intent = Intent(context, MovieDetailsActivity::class.java)
             intent.putExtra("movie_id", movie.id)

@@ -39,7 +39,7 @@ class ViewFavMoviesActivity : HomeActivity() {
 
             if(moviesId.isNotEmpty()) {
                 val movies = moviesId.map { moviesAPI.getMoviesById(it)}
-                recyclerView.adapter = MovieAdapter(movies, this@ViewFavMoviesActivity)
+                recyclerView.adapter = MovieAdapter(movies, this@ViewFavMoviesActivity, R.layout.movie_list_item)
             }
         }
     }
