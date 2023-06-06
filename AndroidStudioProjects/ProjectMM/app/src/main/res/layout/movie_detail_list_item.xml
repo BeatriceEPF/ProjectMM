@@ -21,11 +21,48 @@
                     android:layout_height="200dp" />
                 <TextView
                     android:visibility="gone"
-                    tools:text="@tools:sample/full_names"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="8dp"
                     android:id="@+id/movie_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/release_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/overview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/star_icon1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/star_icon2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/star_icon3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/star_icon4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:id="@+id/star_icon5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:visibility="gone"
+                    android:id="@+id/text_note_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
         </LinearLayout>
 </androidx.cardview.widget.CardView>

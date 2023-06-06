@@ -1,16 +1,19 @@
 package com.example.projectmm
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.projectmm.model.Movie
+import com.example.projectmm.model.MovieDetail
+import kotlin.math.roundToInt
 
 class ClientViewHolder(val view: View) : ViewHolder(view)
 
@@ -30,24 +33,46 @@ class MovieAdapter(val movies: List<Movie>, val context: Context, val layout: In
 
         val view = holder.itemView
 
-        val textView = view.findViewById<TextView>(R.id.movie_title)
-        textView.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
+        val text_title = view.findViewById<TextView>(R.id.movie_title)
+        val release_date = view.findViewById<TextView>(R.id.release_date)
+        val overview = view.findViewById<TextView>(R.id.overview)
+        release_date.text = movie.release_date
+        overview.text = movie.overview
+        setNoteStars(movie, view)
+        text_title.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
 
         //DownloadImageFromInternet(view.findViewById(R.id.movie_view_imageview), context).execute("https://image.tmdb.org/t/p/original/" + movie.poster_path)
         Glide.with(context)
             .load("https://image.tmdb.org/t/p/original/" + movie.poster_path)
             .into(view.findViewById(R.id.movie_view_imageview))
 
-
-
-        //imageView.setImageResource(movie.getImage())
-
         view.setOnClickListener {
-            val test = movie.id
             val intent = Intent(context, MovieDetailsActivity::class.java)
             intent.putExtra("movie_id", movie.id)
             context.startActivity(intent)
         }
+    }
+    @SuppressLint("SetTextI18n")
+    private fun setNoteStars(movie: Movie?, view: View) {
+        val starIcons = ArrayList<ImageView>()
+        starIcons.add(view.findViewById(R.id.star_icon1))
+        starIcons.add(view.findViewById(R.id.star_icon2))
+        starIcons.add(view.findViewById(R.id.star_icon3))
+        starIcons.add(view.findViewById(R.id.star_icon4))
+        starIcons.add(view.findViewById(R.id.star_icon5))
+
+        val noteI = (movie?.vote_average!!.roundToInt().toDouble()/2).roundToInt()
+        val noteF = movie.vote_average.roundToInt().toDouble()/2
+
+        for((cpt, star) in starIcons.withIndex()) {
+            if((cpt+1) <= noteI) {
+                if(noteF-cpt == 0.5) star.setImageResource(R.drawable.baseline_star_half_24)
+                else star.setImageResource(R.drawable.baseline_star_24)
+            }
+        }
+
+        val starTextView = view.findViewById<TextView>(R.id.text_note_count)
+        starTextView.text = " (" + movie.vote_count + " votes)"
     }
 
 }

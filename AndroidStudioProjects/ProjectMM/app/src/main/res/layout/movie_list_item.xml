@@ -1,25 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_margin="4dp"
+android:padding="8dp"
+app:cardCornerRadius="8dp"
+app:cardElevation="16dp">
+
+<RelativeLayout
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:id="@+id/movie_list_item"
-    android:layout_margin="8dp">
-    <LinearLayout
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/movie_view_imageview"
+        android:layout_width="100dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:scaleType="centerCrop"
+        android:layout_centerVertical="true" />
+
+    <TextView
+        android:id="@+id/movie_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_toEndOf="@id/movie_view_imageview" />
+
+    <TextView
+        android:id="@+id/release_date_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/movie_title"
+        android:layout_toEndOf="@id/movie_view_imageview"/>
+
+    <TextView
+        android:id="@+id/release_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/movie_title"
+        android:layout_marginStart="4dp"
+        android:layout_toEndOf="@id/release_date_hint"/>
+
+    <GridLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:layout_below="@id/release_date_hint"
+        android:layout_marginTop="4dp"
+        android:layout_toEndOf="@id/movie_view_imageview"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/stars">
+
         <ImageView
-            android:id="@+id/movie_view_imageview"
-            tools:src="@tools:sample/avatars"
-            android:layout_width="60dp"
-            android:layout_height="60dp" />
+            android:id="@+id/star_icon1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/baseline_star_border_24" />
+        <ImageView
+            android:id="@+id/star_icon2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/baseline_star_border_24"/>
+        <ImageView
+            android:id="@+id/star_icon3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/baseline_star_border_24"/>
+        <ImageView
+            android:id="@+id/star_icon4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/baseline_star_border_24"/>
+        <ImageView
+            android:id="@+id/star_icon5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/baseline_star_border_24"/>
         <TextView
-            tools:text="@tools:sample/full_names"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"
-            android:id="@+id/movie_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
+            android:id="@+id/text_note_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </GridLayout>
+
+    <TextView
+        android:id="@+id/overview_hint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/stars"
+        android:layout_toEndOf="@id/movie_view_imageview" />
+
+    <TextView
+        android:id="@+id/overview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/overview_hint"
+        android:layout_marginBottom="12dp"
+        android:layout_toEndOf="@id/movie_view_imageview"
+        android:ellipsize="end"
+        android:maxLines="4" />
+</RelativeLayout>
 </androidx.cardview.widget.CardView>
