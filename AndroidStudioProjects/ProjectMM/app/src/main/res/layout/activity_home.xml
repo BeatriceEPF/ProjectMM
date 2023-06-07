@@ -243,8 +243,6 @@
                     android:text="EPF école d'ingénieurs"
                     android:gravity="right"
                     tools:ignore="RtlHardcoded"/>
-
-
             </RelativeLayout>
 
             <ImageView
@@ -252,7 +250,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginBottom="70dp"
+                android:layout_marginBottom="10dp"
                 app:srcCompat="@drawable/epf_logo"
                 android:layout_below="@id/relativeLayout6"/>
 
