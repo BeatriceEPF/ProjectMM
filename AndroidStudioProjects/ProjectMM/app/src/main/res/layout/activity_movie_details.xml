@@ -144,19 +144,207 @@
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="20dp"
+                    android:layout_marginBottom="20dp"
                     android:text="Overview" />
 <!--                    android:layout_marginTop="350dp"-->
 
 
-                <TextView
-                    android:id="@+id/details_movie_details_textview"
+<!--                <TextView-->
+<!--                    android:id="@+id/details_movie_details_textview"-->
+<!--                    android:layout_width="350dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginStart="20dp"-->
+<!--                    android:layout_marginBottom="20dp"-->
+<!--                    android:text="Details" />-->
+                <RelativeLayout
                     android:layout_width="350dp"
                     android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="5dp"
+                    android:layout_marginVertical="2dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginBottom="20dp"
-                    android:text="Details" />
-<!--                    android:layout_marginTop="480dp"-->
+                    android:background="@drawable/rounded_box">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:text="Release date"
+                    android:layout_centerVertical="true"
+                    android:gravity="left"
+                    android:textStyle="bold|italic"
+                    tools:ignore="RtlHardcoded"/>
+                <TextView
+                    android:id="@+id/details_movie_release_date_textview"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:textSize="15sp"
+                    android:justificationMode="inter_word"
+                    android:gravity="right"
+                    tools:ignore="RtlHardcoded"/>
+<!--                    android:layout_marginTop="480dp"-->
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="5dp"
+                    android:layout_marginVertical="2dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/rounded_box">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="15sp"
+                        android:justificationMode="inter_word"
+                        android:text="Budget"
+                        android:layout_centerVertical="true"
+                        android:gravity="left"
+                        android:textStyle="bold|italic"
+                        tools:ignore="RtlHardcoded"/>
+                    <TextView
+                        android:id="@+id/details_movie_budget_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="15sp"
+                        android:justificationMode="inter_word"
+                        android:gravity="right"
+                        tools:ignore="RtlHardcoded"/>
+                    <!--                    android:layout_marginTop="480dp"-->
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="5dp"
+                    android:layout_marginVertical="2dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/rounded_box">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="15sp"
+                        android:justificationMode="inter_word"
+                        android:text="Orgiginal language"
+                        android:layout_centerVertical="true"
+                        android:gravity="left"
+                        android:textStyle="bold|italic"
+                        tools:ignore="RtlHardcoded"/>
+                    <TextView
+                        android:id="@+id/details_movie_original_language_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="15sp"
+                        android:justificationMode="inter_word"
+                        android:gravity="right"
+                        tools:ignore="RtlHardcoded"/>
+                    <!--                    android:layout_marginTop="480dp"-->
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="5dp"
+                    android:layout_marginVertical="2dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/rounded_box">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="15sp"
+                        android:justificationMode="inter_word"
+                        android:text="Orgiginal title"
+                        android:gravity="left"
+                        android:textStyle="bold|italic"
+                        tools:ignore="RtlHardcoded"/>
+                    <TextView
+                        android:id="@+id/details_movie_original_title_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="15sp"
+                        android:justificationMode="inter_word"
+                        android:gravity="right"
+                        tools:ignore="RtlHardcoded"/>
+                    <!--                    android:layout_marginTop="480dp"-->
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="5dp"
+                    android:layout_marginVertical="2dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/rounded_box">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="15sp"
+                        android:justificationMode="inter_word"
+                        android:text="Production companies"
+                        android:gravity="left"
+                        android:textStyle="bold|italic"
+                        tools:ignore="RtlHardcoded"/>
+                    <TextView
+                        android:id="@+id/details_movie_production_companies_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="15sp"
+                        android:justificationMode="inter_word"
+                        android:gravity="right"
+                        tools:ignore="RtlHardcoded"/>
+                    <!--                    android:layout_marginTop="480dp"-->
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:paddingHorizontal="20dp"
+                    android:paddingVertical="5dp"
+                    android:layout_marginVertical="2dp"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/rounded_box">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="15sp"
+                        android:justificationMode="inter_word"
+                        android:text="Spoken languages"
+                        android:gravity="left"
+                        android:textStyle="bold|italic"
+                        tools:ignore="RtlHardcoded"/>
+                    <TextView
+                        android:id="@+id/details_movie_spoken_languages_textview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+
+                        android:textSize="15sp"
+                        android:justificationMode="inter_word"
+                        android:gravity="right"
+                        tools:ignore="RtlHardcoded"/>
+                    <!--                    android:layout_marginTop="480dp"-->
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/textView"

@@ -10,7 +10,6 @@ import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -47,7 +46,13 @@ class MovieDetailsActivity : HomeActivity() {
         val typeTextView = findViewById<TextView>(R.id.details_movie_type_textview)
         val runtimeTextView = findViewById<TextView>(R.id.details_movie_runtime_textview)
         val genreTextView = findViewById<TextView>(R.id.details_movie_genre_textview)
-        val detailsTextView = findViewById<TextView>(R.id.details_movie_details_textview)
+        val releaseDateTextView = findViewById<TextView>(R.id.details_movie_release_date_textview)
+        val budgetTextView = findViewById<TextView>(R.id.details_movie_budget_textview)
+        val originalTitleTextView = findViewById<TextView>(R.id.details_movie_original_title_textview)
+        val productionCompaniesTextView = findViewById<TextView>(R.id.details_movie_production_companies_textview)
+        val spokenLanguagesTextView = findViewById<TextView>(R.id.details_movie_spoken_languages_textview)
+
+
 
         val imageBackdrop = findViewById<ImageView>(R.id.details_movie_back_drop_imageview)
 
@@ -62,17 +67,14 @@ class MovieDetailsActivity : HomeActivity() {
             titleTextview.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
             setTitle(movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API")
             overviewTextview.text = movie?.overview
+            releaseDateTextView.text = movie?.release_date
+            budgetTextView.text = movie?.budget.toString() + " $"
+            originalTitleTextView.text = "\n" + movie?.original_title
+            productionCompaniesTextView.text = movie?.production_companies.toString().substring(1, movie?.production_companies.toString().length - 1).replace(",", "")
+            spokenLanguagesTextView.text = movie?.spoken_languages.toString().substring(1, movie?.spoken_languages.toString().length - 1)
 
             setNoteStars(movie)
 
-            detailsTextView.text =
-                movie?.toStringAdult() + "\n" +
-                "Release date : " + movie?.release_date + "\n" +
-                "Budget : " + movie?.budget.toString() + " $" + "\n" +
-                "Original language : " + movie?.original_language + "\n" +
-                "Original title : " + movie?.original_title + "\n" +
-                "Production companies : "  + movie?.production_companies.toString().substring(1, movie?.production_companies.toString().length - 1).replace(",", "") + "\n" +
-                "Spoken languages : "  + movie?.spoken_languages.toString().substring(1, movie?.spoken_languages.toString().length - 1)
 
             typeTextView.text = movie?.tagline + "\n"
 
