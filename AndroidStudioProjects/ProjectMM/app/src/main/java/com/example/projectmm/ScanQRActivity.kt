@@ -15,6 +15,7 @@ class ScanQRActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
     private var mScannerView: ZXingScannerView? = null
     override fun onCreate(state: Bundle?) {
         super.onCreate(state)
+        setTitle("Scan QR Code")
         setContentView(R.layout.activity_scan_qr)
         val contentFrame = findViewById<ViewGroup>(R.id.content_frame)
         mScannerView = ZXingScannerView(this)
@@ -36,14 +37,18 @@ class ScanQRActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
         Log.d("QRCode1", rawResult.text)
         Log.d("QRCode2", rawResult.barcodeFormat.toString())
 
-        val intent = Intent(this, MovieDetailsActivity::class.java)
-        intent.putExtra("movie_id", rawResult.text.toInt())
-        startActivity(intent)
+        try {
+            val intent = Intent(this, MovieDetailsActivity::class.java)
+            intent.putExtra("movie_id", rawResult.text.toInt())
+            startActivity(intent)
+        }
+        catch (e : NumberFormatException){
+            val intent = Intent(this, ScanQRActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(applicationContext, "Invalid QR Code", Toast.LENGTH_SHORT).show()
+        }
 
-        // Note:
-        // * Wait 2 seconds to resume the preview.
-        // * On older devices continuously stopping and resuming camera preview can result in freezing the app.
-        // * I don't know why this is the case but I don't have the time to figure out.
+        
         val handler = Handler()
         handler.postDelayed(
             { mScannerView!!.resumeCameraPreview(this@ScanQRActivity) },

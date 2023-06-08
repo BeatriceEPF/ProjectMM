@@ -14,6 +14,8 @@ class ViewProfileActivity : HomeActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_profile)
 
+        setTitle("Your profile")
+
         super.setBottomBarListener()
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
         bottomNav.selectedItemId = R.id.action_profile

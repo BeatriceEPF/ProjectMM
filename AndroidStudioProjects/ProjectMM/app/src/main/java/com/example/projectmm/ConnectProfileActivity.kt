@@ -25,6 +25,7 @@ class ConnectProfileActivity : AppCompatActivity() {
 
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTitle("Log in")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_connect_profile)
 
@@ -40,11 +41,13 @@ class ConnectProfileActivity : AppCompatActivity() {
 
         forgetButton.setOnClickListener {
             if(modeExtra == "log") {
+                setTitle("Sign up")
                 okButton.text = "S'inscrire"
                 forgetButton.text = "J'ai déjà un compte ?"
                 modeExtra = "sign"
             }
             else if(modeExtra == "sign") {
+                setTitle("Log in")
                 okButton.text = "Se connecter"
                 forgetButton.text = "Je n'ai pas de compte ?"
                 modeExtra = "log"

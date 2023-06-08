@@ -23,6 +23,10 @@ open class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
 
+        if(this.localClassName == "HomeActivity") {
+            setTitle("Home")
+        }
+
         setBottomBarListener()
     }
 
