@@ -17,6 +17,7 @@ class SearchMovieActivity : HomeActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search_movie)
+        setTitle("Search")
 
         super.setBottomBarListener()
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottomNav)
