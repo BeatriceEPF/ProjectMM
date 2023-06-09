@@ -43,8 +43,6 @@ class ScanQRActivity : AppCompatActivity(), ZXingScannerView.ResultHandler {
             startActivity(intent)
         }
         catch (e : NumberFormatException){
-            val intent = Intent(this, ScanQRActivity::class.java)
-            startActivity(intent)
             Toast.makeText(applicationContext, "Invalid QR Code", Toast.LENGTH_SHORT).show()
         }
 

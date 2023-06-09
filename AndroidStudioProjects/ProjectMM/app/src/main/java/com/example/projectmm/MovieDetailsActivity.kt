@@ -9,6 +9,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -62,64 +63,75 @@ class MovieDetailsActivity : HomeActivity() {
         this.recyclerViewSimilar = findViewById<RecyclerView>(R.id.similar_movie_list_item)
         recyclerViewSimilar.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
-        runBlocking {
-            val movie = movieID?.let { moviesAPI.getMovieDetailsById(it) }
-            titleTextview.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
-            setTitle(movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API")
-            overviewTextview.text = movie?.overview
-            releaseDateTextView.text = movie?.release_date
-            budgetTextView.text = movie?.budget.toString() + " $"
-            originalTitleTextView.text = "\n" + movie?.original_title
-            productionCompaniesTextView.text = movie?.production_companies.toString().substring(1, movie?.production_companies.toString().length - 1).replace(",", "")
-            spokenLanguagesTextView.text = movie?.spoken_languages.toString().substring(1, movie?.spoken_languages.toString().length - 1)
+        try {
+            runBlocking {
 
-            setNoteStars(movie)
+                val movie = movieID?.let { moviesAPI.getMovieDetailsById(it) }
+                titleTextview.text = movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API"
+                setTitle(movie?.title ?: movie?.name ?: "On a perdu le titre dans l'API")
+                overviewTextview.text = movie?.overview
+                releaseDateTextView.text = movie?.release_date
+                budgetTextView.text = movie?.budget.toString() + " $"
+                originalTitleTextView.text = "\n" + movie?.original_title
+                productionCompaniesTextView.text = movie?.production_companies.toString()
+                    .substring(1, movie?.production_companies.toString().length - 1)
+                    .replace(",", "")
+                spokenLanguagesTextView.text = movie?.spoken_languages.toString()
+                    .substring(1, movie?.spoken_languages.toString().length - 1)
+
+                setNoteStars(movie)
 
 
-            typeTextView.text = movie?.tagline + "\n"
+                typeTextView.text = movie?.tagline + "\n"
 
-            runtimeTextView.text = movie?.runtime.toString() + " min"
-            genreTextView.text =
-                movie?.genres.toString().substring(1, movie?.genres.toString().length - 1)
-                    .replace(",", " ")
+                runtimeTextView.text = movie?.runtime.toString() + " min"
+                genreTextView.text =
+                    movie?.genres.toString().substring(1, movie?.genres.toString().length - 1)
+                        .replace(",", " ")
 
-            Glide.with(this@MovieDetailsActivity)
-                .load("https://image.tmdb.org/t/p/original/" + movie?.poster_path)
-                .into(findViewById(R.id.details_movie_poster_imageview))
-            Glide.with(this@MovieDetailsActivity)
-                .load("https://image.tmdb.org/t/p/original/" + movie?.backdrop_path)
-                .into(imageBackdrop)
+                Glide.with(this@MovieDetailsActivity)
+                    .load("https://image.tmdb.org/t/p/original/" + movie?.poster_path)
+                    .into(findViewById(R.id.details_movie_poster_imageview))
+                Glide.with(this@MovieDetailsActivity)
+                    .load("https://image.tmdb.org/t/p/original/" + movie?.backdrop_path)
+                    .into(imageBackdrop)
 
-            imageBackdrop.setRenderEffect(
-                RenderEffect.createBlurEffect(
-                    10F,
-                    10F,
-                    Shader.TileMode.MIRROR
+                imageBackdrop.setRenderEffect(
+                    RenderEffect.createBlurEffect(
+                        10F,
+                        10F,
+                        Shader.TileMode.MIRROR
+                    )
                 )
-            )
 
 //            DownloadImageFromInternet(findViewById(R.id.details_movie_poster_imageview), applicationContext).execute("https://image.tmdb.org/t/p/original/" + movie?.poster_path)
 //            DownloadImageFromInternet(findViewById(R.id.details_movie_back_drop_imageview), applicationContext).execute("https://image.tmdb.org/t/p/original/" + movie?.backdrop_path)
 
-            val recommended = movieID?.let {
-                moviesAPI.getRecommendedMovies(it)
-            }
-            val similar = movieID?.let {
-                moviesAPI.getSimilarMovies(it)
-            }
-            if (recommended != null && similar != null) {
-                recyclerViewRecommended.adapter = MovieAdapter(
-                    moviesAPI.getRecommendedMovies(movieID).results.take(6),
-                    this@MovieDetailsActivity,
-                    R.layout.movie_detail_list_item
-                )
-                recyclerViewSimilar.adapter = MovieAdapter(
-                    moviesAPI.getSimilarMovies(movieID).results.take(6),
-                    this@MovieDetailsActivity,
-                    R.layout.movie_detail_list_item
-                )
+                val recommended = movieID?.let {
+                    moviesAPI.getRecommendedMovies(it)
+                }
+                val similar = movieID?.let {
+                    moviesAPI.getSimilarMovies(it)
+                }
+                if (recommended != null && similar != null) {
+                    recyclerViewRecommended.adapter = MovieAdapter(
+                        moviesAPI.getRecommendedMovies(movieID).results.take(6),
+                        this@MovieDetailsActivity,
+                        R.layout.movie_detail_list_item
+                    )
+                    recyclerViewSimilar.adapter = MovieAdapter(
+                        moviesAPI.getSimilarMovies(movieID).results.take(6),
+                        this@MovieDetailsActivity,
+                        R.layout.movie_detail_list_item
+                    )
 
+                }
             }
+        }
+        catch (e : retrofit2.HttpException) {
+            val intent = Intent(this, ScanQRActivity::class.java)
+            startActivity(intent)
+            Toast.makeText(applicationContext, "Invalid movie ID", Toast.LENGTH_SHORT).show()
         }
 
         if (super.isConnected()) this.isFav = isFavMovie()
